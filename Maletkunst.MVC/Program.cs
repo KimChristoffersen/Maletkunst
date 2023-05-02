@@ -1,5 +1,5 @@
+using Maletkunst.MVC.ApiClient;
 using Maletkunst.MVC.DAL;
-using Maletkunst.MVC;
 
 namespace Maletkunst.MVC
 {

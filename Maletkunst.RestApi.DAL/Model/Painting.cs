@@ -1,4 +1,4 @@
-namespace RestApi.DAL.Model;
+namespace Maletkunst.RestApi.DAL.Model;
 
 public class Painting
 {

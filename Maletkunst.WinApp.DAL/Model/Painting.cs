@@ -1,4 +1,4 @@
-﻿namespace ClientApp.DAL.Model;
+﻿namespace Maletkunst.WinApp.DAL.Model;
 
 public class Painting
 {

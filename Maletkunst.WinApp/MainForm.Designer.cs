@@ -1,4 +1,4 @@
-﻿namespace MaletKunst.ClientAPP
+﻿namespace MaletKunst.WinApp
 {
     partial class MainForm
     {

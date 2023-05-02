@@ -1,4 +1,4 @@
-﻿namespace Maletkunst.DAL.Model;
+﻿namespace Maletkunst.MVC.DAL.Model;
 
 public class Painting
 {

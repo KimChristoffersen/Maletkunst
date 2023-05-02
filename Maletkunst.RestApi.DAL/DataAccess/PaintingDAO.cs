@@ -1,7 +1,7 @@
-﻿using RestApi.DAL.Model;
+﻿using Maletkunst.RestApi.DAL.Model;
 using System.Data.SqlClient;
 
-namespace RestApi.DAL.DataAccess;
+namespace Maletkunst.RestApi.DAL.DataAccess;
 
 public class PaintingDAO : IPaintingDAO
 {
@@ -112,8 +112,8 @@ public class PaintingDAO : IPaintingDAO
         SqlCommand command = new SqlCommand(queryString, connection, transaction);
 
         command.Parameters.AddWithValue("@Title", painting.Title);
-        command.Parameters.AddWithValue("@Price", (decimal)painting.Price);
-        command.Parameters.AddWithValue("@Stock", (int)painting.Stock);
+        command.Parameters.AddWithValue("@Price", painting.Price);
+        command.Parameters.AddWithValue("@Stock", painting.Stock);
         command.Parameters.AddWithValue("@Artist", painting.Artist);
         command.Parameters.AddWithValue("@Description", painting.Description);
         command.Parameters.AddWithValue("@Category", painting.Category);
@@ -148,7 +148,7 @@ public class PaintingDAO : IPaintingDAO
         command.Parameters.AddWithValue("@id", id);
         connection.Open();
 
-        try 
+        try
         {
             command.ExecuteNonQuery();
             return true;

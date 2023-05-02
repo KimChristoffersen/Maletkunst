@@ -1,8 +1,9 @@
 
 using ClientApp.DAL.Client;
-using ClientApp.DAL.Model;
+using Maletkunst.WinApp.ApiClient;
+using Maletkunst.WinApp.DAL.Model;
 
-namespace MaletKunst.ClientAPP;
+namespace MaletKunst.WinApp;
 
 public partial class MainForm : Form
 {

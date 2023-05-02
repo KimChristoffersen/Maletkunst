@@ -1,7 +1,7 @@
-﻿using ClientApp.DAL.Model;
+﻿using Maletkunst.WinApp.DAL.Model;
 using RestSharp;
 
-namespace ClientApp.DAL.Client;
+namespace Maletkunst.WinApp.ApiClient;
 
 public class PaintingsRestClient : IPaintingsRestClient
 {

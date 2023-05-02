@@ -1,8 +1,6 @@
-using RestApi.Api.Controllers;
-using RestApi.DAL.DataAccess;
-using RestApi.DAL.Model;
+using Maletkunst.RestApi.DAL.DataAccess;
 
-namespace RestApi.TEST;
+namespace Maletkunst.RestApi.Test;
 
 public class Tests
 {

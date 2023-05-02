@@ -1,6 +1,6 @@
-﻿using RestApi.DAL.Model;
+﻿using Maletkunst.RestApi.DAL.Model;
 
-namespace RestApi.DAL.DataAccess;
+namespace Maletkunst.RestApi.DAL.DataAccess;
 
 public interface IPaintingDAO
 {

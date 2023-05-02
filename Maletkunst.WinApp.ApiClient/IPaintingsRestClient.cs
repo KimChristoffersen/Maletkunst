@@ -1,6 +1,6 @@
-﻿using ClientApp.DAL.Model;
+﻿using Maletkunst.WinApp.DAL.Model;
 
-namespace ClientApp.DAL.Client;
+namespace Maletkunst.WinApp.ApiClient;
 
 public interface IPaintingsRestClient
 {

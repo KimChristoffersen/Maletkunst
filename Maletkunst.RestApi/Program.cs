@@ -1,6 +1,6 @@
-using RestApi.DAL.DataAccess;
+using Maletkunst.RestApi.DAL.DataAccess;
 
-namespace RestApi;
+namespace Maletkunst.RestApi;
 
 public class Program
 {

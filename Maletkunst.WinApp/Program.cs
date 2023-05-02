@@ -1,6 +1,6 @@
-using MaletKunst.ClientAPP;
+using MaletKunst.WinApp;
 
-namespace ClientApp;
+namespace Maletkunst.WinApp;
 
 internal static class Program
 {

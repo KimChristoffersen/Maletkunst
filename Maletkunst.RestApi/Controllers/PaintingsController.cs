@@ -1,8 +1,8 @@
-﻿using RestApi.DAL.DataAccess;
-using RestApi.DAL.Model;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Maletkunst.RestApi.DAL.Model;
+using Maletkunst.RestApi.DAL.DataAccess;
 
-namespace RestApi.Controllers;
+namespace Maletkunst.RestApi.Controllers;
 
 //Routing med eller uden api/{controller}? vi har jo en mappe (serversetup) kaldet api så vi ikke router til api/api/paintings
 [Route("v1/[controller]")]
