@@ -3,25 +3,25 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maletkunst.RestApi.DAL", "Maletkunst.RestApi.DAL\Maletkunst.RestApi.DAL.csproj", "{4B100D0F-3788-41EC-880A-3CCCD8B6A528}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maletkunst.RestApi.DAL", "Maletkunst.RestApi.DAL\Maletkunst.RestApi.DAL.csproj", "{4B100D0F-3788-41EC-880A-3CCCD8B6A528}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maletkunst.MVC.DAL", "Maletkunst.MVC.DAL\Maletkunst.MVC.DAL.csproj", "{1955BBC1-2A88-4992-BBF3-AF449F904440}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maletkunst.MVC.DAL", "Maletkunst.MVC.DAL\Maletkunst.MVC.DAL.csproj", "{1955BBC1-2A88-4992-BBF3-AF449F904440}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maletkunst.WinApp.DAL", "Maletkunst.WinApp.DAL\Maletkunst.WinApp.DAL.csproj", "{4BD70608-4C19-4D2E-9461-33110B5388AF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maletkunst.WinApp.DAL", "Maletkunst.WinApp.DAL\Maletkunst.WinApp.DAL.csproj", "{4BD70608-4C19-4D2E-9461-33110B5388AF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maletkunst.RestApi", "Maletkunst.RestApi\Maletkunst.RestApi.csproj", "{11837E70-4F82-4F83-B7EB-E835ABB78E86}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maletkunst.RestApi", "Maletkunst.RestApi\Maletkunst.RestApi.csproj", "{11837E70-4F82-4F83-B7EB-E835ABB78E86}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maletkunst.MVC", "Maletkunst.MVC\Maletkunst.MVC.csproj", "{F9F118B1-C5AF-45E0-9DC0-2A60ADC936DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maletkunst.MVC", "Maletkunst.MVC\Maletkunst.MVC.csproj", "{F9F118B1-C5AF-45E0-9DC0-2A60ADC936DE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maletkunst.Interfaces", "Maletkunst.Interfaces\Maletkunst.Interfaces.csproj", "{F650E82C-3EB1-4C2F-A8E6-C601EECF909A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maletkunst.Interfaces", "Maletkunst.Interfaces\Maletkunst.Interfaces.csproj", "{F650E82C-3EB1-4C2F-A8E6-C601EECF909A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maletkunst.RestApi.Test", "Maletkunst.RestApi.Test\Maletkunst.RestApi.Test.csproj", "{078037D3-896E-4B6C-ACFC-D7BCDC26DD41}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maletkunst.RestApi.Test", "Maletkunst.RestApi.Test\Maletkunst.RestApi.Test.csproj", "{078037D3-896E-4B6C-ACFC-D7BCDC26DD41}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maletkunst.WinApp.ApiClient", "Maletkunst.WinApp.ApiClient\Maletkunst.WinApp.ApiClient.csproj", "{00F33A36-DE13-4C51-AE29-7A6FB4E0B08D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maletkunst.WinApp.ApiClient", "Maletkunst.WinApp.ApiClient\Maletkunst.WinApp.ApiClient.csproj", "{00F33A36-DE13-4C51-AE29-7A6FB4E0B08D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maletkunst.WinApp", "Maletkunst.WinApp\Maletkunst.WinApp.csproj", "{CEB96885-7143-41FF-BF3C-68819D74EF42}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maletkunst.WinApp", "Maletkunst.WinApp\Maletkunst.WinApp.csproj", "{CEB96885-7143-41FF-BF3C-68819D74EF42}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maletkunst.MVC.ApiClient", "Maletkunst.MVC.ApiClient\Maletkunst.MVC.ApiClient.csproj", "{F7702814-DC7D-4E3E-94B3-786C4301129D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maletkunst.MVC.ApiClient", "Maletkunst.MVC.ApiClient\Maletkunst.MVC.ApiClient.csproj", "{F7702814-DC7D-4E3E-94B3-786C4301129D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

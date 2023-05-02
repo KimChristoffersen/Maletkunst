@@ -1,3 +1,6 @@
+using Maletkunst.MVC.DAL;
+using Maletkunst.MVC;
+
 namespace Maletkunst.MVC
 {
     public class Program
@@ -8,6 +11,7 @@ namespace Maletkunst.MVC
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddSingleton<IPaintingDao, MVCRestClient>();
 
             var app = builder.Build();
 

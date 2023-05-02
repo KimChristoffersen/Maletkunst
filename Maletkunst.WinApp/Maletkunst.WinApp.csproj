@@ -8,4 +8,10 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Maletkunst.Interfaces\Maletkunst.Interfaces.csproj" />
+    <ProjectReference Include="..\Maletkunst.WinApp.ApiClient\Maletkunst.WinApp.ApiClient.csproj" />
+    <ProjectReference Include="..\Maletkunst.WinApp.DAL\Maletkunst.WinApp.DAL.csproj" />
+  </ItemGroup>
+
 </Project>
