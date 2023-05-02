@@ -1,5 +1,3 @@
-
-using ClientApp.DAL.Client;
 using Maletkunst.WinApp.ApiClient;
 using Maletkunst.WinApp.DAL.Model;
 
