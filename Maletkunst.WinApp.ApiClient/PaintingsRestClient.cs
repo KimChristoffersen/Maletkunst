@@ -6,7 +6,7 @@ namespace Maletkunst.WinApp.ApiClient;
 public class PaintingsRestClient : IPaintingsRestClient
 {
     RestSharp.RestClient restClient = new RestSharp.RestClient("https://www.maletkunst.dk/api/v1");
-    //RestClient restClient = new RestClient("https://localhost:7064/v1");
+    //RestClient restClient = new RestClient("https://localhost:7150/v1");
 
 
     public IEnumerable<Painting> GetAll()
@@ -36,9 +36,11 @@ public class PaintingsRestClient : IPaintingsRestClient
     public bool UpdatePainting(Painting painting)
     {
         var request = new RestRequest("paintings", Method.Put).AddJsonBody(painting);
-        var response = restClient.Execute<bool>(request);
+        var response = restClient.ExecuteAsync<bool>(request);
 
-        if (!response.IsSuccessful) { return false; }
+        response.Wait();
+
+        if (!response.IsCompleted) { return false; }
         return true;
 
         

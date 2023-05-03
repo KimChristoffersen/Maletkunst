@@ -89,10 +89,10 @@ public class PaintingsController : ControllerBase
         return Ok(id);
     }
 
-    [HttpPut("{id}")]
-    public void Put(int id, [FromBody] string value)
-    {
-    }
+    //[HttpPut("{id}")]
+    //public void Put(int id, [FromBody] string value)
+    //{
+    //}
 
     [HttpDelete("delete/{id}")]
     public ActionResult<bool> Delete(int id)
