@@ -33,9 +33,6 @@ namespace Maletkunst.MVC.Controllers
 
         }
 
-
-
-
         public IActionResult GetPaintingsByCategory(string category)
         {
             var getPaintingsByCategory = _client.GetPaintingsByCategory(category);
@@ -43,7 +40,13 @@ namespace Maletkunst.MVC.Controllers
 
         }
 
+        public IActionResult Details(int id)
+        {
+            var painting = _client.GetPaintingById(id);
+       
 
+            return View(painting);
+        }
 
 
     }

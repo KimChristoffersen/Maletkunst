@@ -1,0 +1,29 @@
+﻿@model Maletkunst.MVC.DAL.Model.Painting
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div>
+    <h4>Painting details</h4>
+    <hr />
+    <div class="Details">
+        @*<img src="https://via.placeholder.com/325x325.png?text=No+Image" alt="@Model.Title">*@
+        @*udskift 7 med @Model.Id.ToString() + .png*@
+        <img src="/images/@(Model.Id.ToString() + ".png")" height="150" width="150">
+        @*        <img src="/images/7.png" height="325" width="325">
+        *@        <br>
+        <p>Titel: @Model.Title</p>
+        <p>lavet af: @Model.Artist</p>
+        <p>Kategori: @Model.Category</p>
+        <p>Pris: @Model.Price</p>
+        <form asp-controller="ShoppingCart" asp-action="Add" method="post" class="d-inline-block">
+            <input type="hidden" name="id" value="@Model.Id" />
+            <button type="submit" class="add-to-cart-button">Tilføj til kurv</button>
+        </form>
+    </div>
+</div>
+<div>
+    @Html.ActionLink("", "", new { id = Model.Id }) |
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -39,6 +39,13 @@ public class MVCRestClient : IPaintingDao
         return response.Data;
     }
 
+    public Painting GetPaintingById(int id)
+    {
+        var request = new RestRequest($"{id}", Method.Get);
+        var response = client.Execute<Painting>(request);
+        return response.Data;
+    }
+
 }
 
 

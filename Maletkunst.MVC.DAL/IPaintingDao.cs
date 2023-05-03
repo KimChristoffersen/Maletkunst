@@ -14,5 +14,7 @@ namespace Maletkunst.MVC.DAL
         IEnumerable<Painting> Search(string searchString);
 
         IEnumerable<Painting> GetPaintingsByCategory(string category);
+
+        Painting GetPaintingById(int id);
     }
 }
