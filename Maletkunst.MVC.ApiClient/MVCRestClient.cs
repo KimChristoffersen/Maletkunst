@@ -1,6 +1,7 @@
 ﻿using Maletkunst.MVC.DAL;
 using Maletkunst.MVC.DAL.Model;
 using RestSharp;
+using static System.Net.WebRequestMethods;
 
 namespace Maletkunst.MVC.ApiClient;
 
@@ -14,6 +15,7 @@ public class MVCRestClient : IPaintingDao
     {
 
         restUrl = "https://www.maletkunst.dk/api/v1/Paintings";
+        //restUrl = "https://localhost:7150/v1/Paintings";
 
         client = new RestSharp.RestClient(restUrl);
     }

@@ -31,5 +31,8 @@ body {
     text-align: center;
     background-color: #f2f2f2 !important; /* light gray */
 }
+.container{
+    text-align: center;
+}
 
 
