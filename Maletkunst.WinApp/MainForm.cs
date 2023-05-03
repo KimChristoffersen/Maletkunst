@@ -1,5 +1,6 @@
 using Maletkunst.WinApp.ApiClient;
 using Maletkunst.WinApp.DAL.Model;
+using System.Net;
 
 namespace MaletKunst.WinApp;
 
@@ -54,10 +55,27 @@ public partial class MainForm : Form
             comboBoxCategory.Text = painting.Category;
             textBoxDescription.Text = painting.Description;
 
-            // LOADING IMAGE
-            string imagePath = $"C:\\Users\\huygo\\Downloads\\{painting.Id}.jpg"; // PATH NEEDS TO BE CORRECTED
-            if (File.Exists(imagePath)) { pictureBox1.Image = Image.FromFile(imagePath); }
-            else { pictureBox1.Image = null; }
+            LoadImage(painting);
+        }
+    }
+
+    private void LoadImage(Painting painting)
+    {
+        string imagePath = $"https://www.maletkunst.dk/images/{painting.Id}.jpg";
+        try
+        {
+            using (var webClient = new WebClient())
+            {
+                var imageBytes = webClient.DownloadData(imagePath);
+                using (var pictureFromMemoryStream = new MemoryStream(imageBytes))
+                {
+                    pictureBox1.Image = Image.FromStream(pictureFromMemoryStream);
+                }
+            }
+        }
+        catch (WebException)
+        {
+            pictureBox1.Image = null;
         }
     }
 
