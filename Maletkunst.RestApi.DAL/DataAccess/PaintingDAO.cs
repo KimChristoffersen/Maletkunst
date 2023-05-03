@@ -158,4 +158,29 @@ public class PaintingDAO : IPaintingDAO
             throw new Exception("ERROR occurred while deleting painting", ex);
         }
     }
+
+    public bool UpdatePainting(Painting painting)
+    {
+        string queryString = @"UPDATE Painting set Title =@title, Price = @price, Stock = @stock, Artist = @artist, Description = @description, Category = @category WHERE id = @id";
+        using SqlConnection connection = new SqlConnection(connectionString);
+        SqlCommand command = new SqlCommand(queryString, connection);
+        command.Parameters.AddWithValue("@title", painting.Title);
+        command.Parameters.AddWithValue("@price", painting.Price);
+        command.Parameters.AddWithValue("@stock", painting.Stock);
+        command.Parameters.AddWithValue("@artist", painting.Artist);
+        command.Parameters.AddWithValue("@description", painting.Description);
+        command.Parameters.AddWithValue("@category", painting.Category);
+        command.Parameters.AddWithValue("@id", painting.Id);
+        connection.Open();
+
+        try
+        {
+            command.ExecuteNonQuery();
+            return true;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("ERROR occurred while updating painting", ex);
+        }
+    }
 }

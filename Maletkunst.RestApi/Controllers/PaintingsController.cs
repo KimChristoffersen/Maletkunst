@@ -103,4 +103,13 @@ public class PaintingsController : ControllerBase
         }
         return Ok();
     }
+
+    [HttpPut]
+    public ActionResult<bool> UpdatePainting(Painting painting)
+    {
+
+        if (!_paintingDAO.UpdatePainting(painting)) { return BadRequest(); }
+
+        return Ok(painting);
+    }
 }

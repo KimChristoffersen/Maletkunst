@@ -32,4 +32,15 @@ public class PaintingsRestClient : IPaintingsRestClient
         return true;
 
     }
+
+    public bool UpdatePainting(Painting painting)
+    {
+        var request = new RestRequest("paintings", Method.Put).AddJsonBody(painting);
+        var response = restClient.Execute<bool>(request);
+
+        if (!response.IsSuccessful) { return false; }
+        return true;
+
+        
+    }
 }

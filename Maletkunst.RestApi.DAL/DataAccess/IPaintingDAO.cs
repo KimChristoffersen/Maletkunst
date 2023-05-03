@@ -11,4 +11,5 @@ public interface IPaintingDAO
     IEnumerable<Painting> GetAllByCategoryAndFreeSearch(string category, string searchString);
     int CreatePainting(Painting painting);
     bool DeletePainting(int id);
+    bool UpdatePainting(Painting painting);
 }

@@ -128,4 +128,32 @@ public partial class MainForm : Form
             MessageBox.Show($"Maleri med id {paintingToDeleteId} er ikke slettet", "Fejl", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
+
+    private void buttonUpdate_Click(object sender, EventArgs e) => UpdatePainting();
+
+    private void UpdatePainting()
+    {
+        Painting painting = new()
+        {
+            Id = int.Parse(textBoxId.Text),
+            Title = textBoxTitle.Text,
+            Price = decimal.Parse(textBoxPrice.Text),
+            Stock = int.Parse(textBoxStock.Text),
+            Artist = textBoxArtist.Text,
+            Category = comboBoxCategory.Text,
+            Description = textBoxDescription.Text
+            // Picture....
+        };
+        if (!paintingsRestClient.UpdatePainting(painting))
+        {
+            MessageBox.Show("Opdatering af maleri mislykkedes", "Fejl", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+        else
+        {
+            MessageBox.Show($"Maleri med id {painting.Id} er opdateret", "Succes", MessageBoxButtons.OK, MessageBoxIcon.None);
+            listBoxPaintings.Items.Clear();
+            LoadData();
+            Clear();
+        }
+    }
 }

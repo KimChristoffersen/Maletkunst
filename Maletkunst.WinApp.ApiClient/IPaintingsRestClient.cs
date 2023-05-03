@@ -7,4 +7,6 @@ public interface IPaintingsRestClient
     IEnumerable<Painting> GetAll();
     int CreatePainting(Painting painting);
     bool DeletePainting(int paintingId);
+
+    bool UpdatePainting(Painting painting);
 }

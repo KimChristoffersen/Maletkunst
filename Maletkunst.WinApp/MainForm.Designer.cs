@@ -144,6 +144,7 @@
             buttonUpdate.TabIndex = 28;
             buttonUpdate.Text = "Ændre";
             buttonUpdate.UseVisualStyleBackColor = true;
+            buttonUpdate.Click += buttonUpdate_Click;
             // 
             // buttonCreate
             // 
