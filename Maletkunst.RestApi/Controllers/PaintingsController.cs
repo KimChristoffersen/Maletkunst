@@ -73,12 +73,6 @@ public class PaintingsController : ControllerBase
         return Ok(paintings);
     }
 
-    [HttpGet("{id}")]
-    public string Get(int id)
-    {
-        return "value";
-    }
-
     [HttpPost]
     public ActionResult<int> CreatePainting(Painting painting)
     {
@@ -89,10 +83,16 @@ public class PaintingsController : ControllerBase
         return Ok(id);
     }
 
-    //[HttpPut("{id}")]
-    //public void Put(int id, [FromBody] string value)
-    //{
-    //}
+    [HttpGet("{id}")]
+    public ActionResult<Painting> GetPaintingById(int id)
+    {
+        Painting paiting = _paintingDAO.GetPaintingbyId(id);
+
+        if (paiting == null) { return NotFound(); }
+
+        return Ok(paiting);
+    }
+
 
     [HttpDelete("delete/{id}")]
     public ActionResult<bool> Delete(int id)
