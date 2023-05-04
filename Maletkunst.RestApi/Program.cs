@@ -1,4 +1,5 @@
 using Maletkunst.RestApi.DAL.DataAccess;
+using Maletkunst.RestApi.DAL.Interface;
 
 namespace Maletkunst.RestApi;
 
@@ -15,7 +16,8 @@ public class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
-        builder.Services.AddSingleton<IPaintingDAO>(new PaintingDAO());
+        builder.Services.AddScoped<IPaintingWinAppDataAccess, PaintingWinAppSqlDao>();
+        builder.Services.AddScoped<IPaintingMvcDataAccess, PaintingMvcSqlDao>();
 
         var app = builder.Build();
 

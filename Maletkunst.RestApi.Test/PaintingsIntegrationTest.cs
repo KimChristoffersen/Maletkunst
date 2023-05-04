@@ -1,11 +1,12 @@
 using Maletkunst.RestApi.DAL.DataAccess;
+using Maletkunst.RestApi.DAL.Interface;
 
 namespace Maletkunst.RestApi.Test;
 
 public class Tests
 {
 
-    IPaintingDAO _paintingDAO = new PaintingDAO();
+    IPaintingMvcDataAccess _paintingDAO = new PaintingWinAppSqlDao();
 
     [SetUp]
     public void Setup()
