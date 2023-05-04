@@ -10,8 +10,7 @@
     <div class="cart-header">
         <div class="row">
             <div class="col-md-6 text-start">Malerier</div>
-            <div class="col-md-2 text-end">Pris</div>
-            <div class="col-md-2"></div>
+            <div class="col-md-4 text-end">Pris</div>
             <div class="col-md-2"></div>
         </div>
     </div>
@@ -25,8 +24,7 @@
                         <span class="product-name">@item.Name</span>
                     </div>
                 </div>
-                <div class="col-md-2 text-end">@($"DKK {item.Price:F2}")</div>
-               
+                <div class="col-md-4 text-end">@($"DKK {item.Price:F2}")</div>
                 <div class="col-md-2">
                     <form asp-controller="ShoppingCart" asp-action="Delete" asp-route-id="@item.Id" method="post">
                         <button type="submit" class="btn btn-outline-danger">Fjern</button>
@@ -38,9 +36,8 @@
     <div class="cart-footer">
         <div class="row">
             <div class="col-md-6 text-start">Total</div>
+            <div class="col-md-4 text-end">@($"DKK {Model.Total:F2}")</div>
             <div class="col-md-2"></div>
-            <div class="col-md-2"></div>
-            <div class="col-md-2 text-end">@($"DKK {Model.Total:F2}")</div>
         </div>
     </div>
 </div>
