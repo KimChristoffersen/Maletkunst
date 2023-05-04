@@ -16,6 +16,9 @@ public class PaintingRestApiClient : IPaintingMvcDataAccess
 
         restUrl = "https://www.maletkunst.dk/api/v1/Paintings";
         //restUrl = "https://localhost:7150/v1/Paintings";
+        
+        //Robert URL nedenunder
+        //restUrl = "https://localhost:7104/Paintings";
 
         client = new RestSharp.RestClient(restUrl);
     }
@@ -41,13 +44,20 @@ public class PaintingRestApiClient : IPaintingMvcDataAccess
         return response.Data;
     }
 
-    public Painting GetPaintingById(int id)
-    {
-        var request = new RestRequest($"{id}", Method.Get);
-        var response = client.Execute<Painting>(request);
-        return response.Data;
-    }
+    //public Painting GetPaintingById(int id)
+    //{
+    //    var request = new RestRequest($"{id}", Method.Get);
+    //    var response = client.Execute<Painting>(request);
+    //    return response.Data;
+    //}
 
+	public Painting GetPaintingById(int id)
+	{
+		var request = new RestRequest("{id}");
+		request.AddUrlSegment("id", id);
+		var response = client.Execute<Painting>(request);
+		return response.Data;
+	}
 }
 
 

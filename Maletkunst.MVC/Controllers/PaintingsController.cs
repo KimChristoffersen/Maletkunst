@@ -35,5 +35,12 @@ public class PaintingsController : Controller
         var painting = _client.GetPaintingById(id);
         return View(painting);
     }
+
+    public IActionResult GetPaintingById(int id)
+    {
+
+        var getPaintingById = _client.GetPaintingById(id);
+        return View("Index", getPaintingById);
+    }
 }
 
