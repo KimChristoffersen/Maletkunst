@@ -1,45 +1,46 @@
 ﻿@model IEnumerable<Maletkunst.MVC.DAL.Model.Painting>
 
 @{
-    ViewData["Title"] = "Malerier";
+	ViewData["Title"] = "Malerier";
 }
 
-@*<h1>Malerier</h1>
-*@<div class="d-flex justify-content-start">
-    <p>Søg på malerititel:</p>
-    <form asp-action="Index" method="get">
-        <input type="text" name="searchString" />
-        <button type="submit">Search</button>
-    </form>
+<div class="d-flex justify-content-center">
+	<form asp-action="Index" method="get">
+		<div class="input-group">
+			<input type="text" class="form-control" name="searchString" placeholder="Search">
+			<button type="submit" class="btn btn-primary">Search</button>
+		</div>
+	</form>
 </div>
+
 
 @if (Model == null || Model.Count() == 0)
 {
-    <p>Ingen malerier i den valgte kategori fundet</p>
+	<p>Ingen malerier i den valgte kategori fundet</p>
 }
 else
 {
-    <div class="Paintings-container">
-        @foreach (var item in Model)
-        {
-            <div class="Paintings">
-                @*<img src="https://via.placeholder.com/150x150.png?text=No+Image" alt="@item.Title">*@
-                <img src="/images/@(item.Id.ToString() + ".jpg")" height="150" width="150">
+	<div class="Paintings-container">
+		@foreach (var item in Model)
+		{
+			<div class="Paintings">
+				@*<img src="https://via.placeholder.com/150x150.png?text=No+Image" alt="@item.Title">*@
+				<img src="/images/@(item.Id.ToString() + ".jpg")" height="150" width="150">
 
-                <br>
-                <a href="/Paintings/Details?id=@item.Id">@item.Title</a>
-                <br>
-                <p>lavet af: @item.Artist</p>
-                <p>Kategori: @item.Category</p>
-                <p>Pris: @item.Price</p>
-                <form asp-controller="ShoppingCart" asp-action="Add" method="post" class="d-inline-block">
-                    <input type="hidden" name="id" value="@item.Id" />
-                    <button type="submit" class="add-to-cart-button">Tilføj til kurv</button>
-                </form>
-            </div>
-        }
+				<br>
+				<a href="/Paintings/Details?id=@item.Id">@item.Title</a>
+				<br>
+				<p>lavet af: @item.Artist</p>
+				<p>Kategori: @item.Category</p>
+				<p>Pris: @item.Price</p>
+				<form asp-controller="ShoppingCart" asp-action="Add" method="post" class="d-inline-block">
+					<input type="hidden" name="id" value="@item.Id" />
+					<button type="submit" class="add-to-cart-button">Tilføj til kurv</button>
+				</form>
+			</div>
+		}
 
-        }
-    </div>
+
+	</div>
 
 }
