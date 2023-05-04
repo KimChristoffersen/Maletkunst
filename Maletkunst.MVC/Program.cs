@@ -1,5 +1,5 @@
 using Maletkunst.MVC.ApiClient;
-using Maletkunst.MVC.DAL;
+using Maletkunst.MVC.DAL.Interface;
 
 namespace Maletkunst.MVC
 {
@@ -11,7 +11,8 @@ namespace Maletkunst.MVC
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-            builder.Services.AddSingleton<IPaintingDao, MVCRestClient>();
+
+            builder.Services.AddScoped<IPaintingMvcDataAccess, PaintingRestApiClient>();
 
             var app = builder.Build();
 

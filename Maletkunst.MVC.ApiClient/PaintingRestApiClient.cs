@@ -1,4 +1,4 @@
-﻿using Maletkunst.MVC.DAL;
+﻿using Maletkunst.MVC.DAL.Interface;
 using Maletkunst.MVC.DAL.Model;
 using RestSharp;
 using static System.Net.WebRequestMethods;
@@ -6,12 +6,12 @@ using static System.Net.WebRequestMethods;
 namespace Maletkunst.MVC.ApiClient;
 
 
-public class MVCRestClient : IPaintingDao
+public class PaintingRestApiClient : IPaintingMvcDataAccess
 {
     private readonly string restUrl;
     public readonly RestSharp.RestClient client;
 
-    public MVCRestClient()
+    public PaintingRestApiClient()
     {
 
         restUrl = "https://www.maletkunst.dk/api/v1/Paintings";
@@ -20,21 +20,21 @@ public class MVCRestClient : IPaintingDao
         client = new RestSharp.RestClient(restUrl);
     }
 
-    public IEnumerable<Painting> GetAllPaintings()
+    public IEnumerable<Painting> GetAllAvailablePaintings()
     {
         var request = new RestRequest();
-        return client.Get<IEnumerable<Painting>>(request);
-
+        var response = client.Execute<IEnumerable<Painting>>(request);
+        return response.Data;
     }
 
-    public IEnumerable<Painting> Search(string searchString)
+    public IEnumerable<Painting> GetAllPaintingsByFreeSearch(string searchString)
     {
         var request = new RestRequest($"search/{searchString}", Method.Get);
         var response = client.Execute<IEnumerable<Painting>>(request);
         return response.Data;
     }
 
-    public IEnumerable<Painting> GetPaintingsByCategory(string category)
+    public IEnumerable<Painting> GetAllPaintingsByCategory(string category)
     {
         var request = new RestRequest($"category/{category}", Method.Get);
         var response = client.Execute<IEnumerable<Painting>>(request);

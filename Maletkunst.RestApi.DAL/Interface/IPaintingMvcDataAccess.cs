@@ -4,9 +4,9 @@ namespace Maletkunst.RestApi.DAL.Interface;
 
 public interface IPaintingMvcDataAccess
 {
-    IEnumerable<Painting> GetAllAvailable();
-    IEnumerable<Painting> GetAllFreeSearch(string searchString);
-    IEnumerable<Painting> GetAllByCategory(string category);
-    IEnumerable<Painting> GetAllByCategoryAndFreeSearch(string category, string searchString);
-    Painting GetPaintingbyId(int id);
+    IEnumerable<Painting> GetAllAvailablePaintings();
+    IEnumerable<Painting> GetAllPaintingsByFreeSearch(string searchString);
+    IEnumerable<Painting> GetAllPaintingsByCategory(string category);
+    IEnumerable<Painting> GetAllPaintingsByCategoryAndFreeSearch(string category, string searchString);
+    Painting GetPaintingById(int id);
 }

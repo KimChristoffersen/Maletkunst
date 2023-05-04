@@ -8,7 +8,7 @@ public class PaintingMvcSqlDao : IPaintingMvcDataAccess
 {
     private const string connectionString = @"Data Source=hildur.ucn.dk; Initial Catalog=DMA-CSD-V221_10434660; User ID=DMA-CSD-V221_10434660; Password=Password1!;";
 
-    public IEnumerable<Painting> GetAllAvailable()
+    public IEnumerable<Painting> GetAllAvailablePaintings()
     {
         string queryString = @"SELECT * FROM Painting WHERE stock > 0";
         using SqlConnection connection = new SqlConnection(connectionString);
@@ -21,7 +21,7 @@ public class PaintingMvcSqlDao : IPaintingMvcDataAccess
         catch (Exception ex) { throw new Exception("ERROR occurred while getting all paintings", ex); }
     }
 
-    public IEnumerable<Painting> GetAllFreeSearch(string searchString)
+    public IEnumerable<Painting> GetAllPaintingsByFreeSearch(string searchString)
     {
         string queryString = @"SELECT * FROM Painting WHERE Stock > 0 AND (Title LIKE '%' + @searchString + '%' OR Artist LIKE '%' + @searchString + '%' OR [Description] LIKE '%' + @searchString + '%')";
         using SqlConnection connection = new SqlConnection(connectionString);
@@ -36,7 +36,7 @@ public class PaintingMvcSqlDao : IPaintingMvcDataAccess
         catch (Exception ex) { throw new Exception("ERROR occurred while getting all paintings", ex); }
     }
 
-    public IEnumerable<Painting> GetAllByCategory(string category)
+    public IEnumerable<Painting> GetAllPaintingsByCategory(string category)
     {
         string queryString = @"SELECT * FROM Painting WHERE stock > 0 and category like '%' + @category + '%'";
         using SqlConnection connection = new SqlConnection(connectionString);
@@ -55,7 +55,7 @@ public class PaintingMvcSqlDao : IPaintingMvcDataAccess
         }
     }
 
-    public IEnumerable<Painting> GetAllByCategoryAndFreeSearch(string category, string searchString)
+    public IEnumerable<Painting> GetAllPaintingsByCategoryAndFreeSearch(string category, string searchString)
     {
         string queryString = @"SELECT * FROM Painting WHERE Stock > 0 AND Category like '%' + @category + '%' AND (Title LIKE '%' + @searchString + '%' OR Artist LIKE '%' + @searchString + '%' OR [Description] LIKE '%' + @searchString + '%')";
         using SqlConnection connection = new SqlConnection(connectionString);
@@ -91,7 +91,7 @@ public class PaintingMvcSqlDao : IPaintingMvcDataAccess
         return paintings;
     }
 
-    public Painting GetPaintingbyId(int id)
+    public Painting GetPaintingById(int id)
     {
         Painting painting = new Painting();
         string queryString = @"SELECT * FROM Painting where id = @id";

@@ -8,7 +8,7 @@ public class PaintingWinAppSqlDao : IPaintingWinAppDataAccess
 {
     private const string connectionString = @"Data Source=hildur.ucn.dk; Initial Catalog=DMA-CSD-V221_10434660; User ID=DMA-CSD-V221_10434660; Password=Password1!;";
 
-    public IEnumerable<Painting> GetAll()
+    public IEnumerable<Painting> GetAllPaintings()
     {
         string queryString = @"SELECT * FROM Painting";
         using SqlConnection connection = new SqlConnection(connectionString);
@@ -20,70 +20,7 @@ public class PaintingWinAppSqlDao : IPaintingWinAppDataAccess
 
         catch (Exception ex) { throw new Exception("ERROR occurred while getting all paintings", ex); }
     }
-    public IEnumerable<Painting> GetAllAvailable()
-    {
-        string queryString = @"SELECT * FROM Painting WHERE stock > 0";
-        using SqlConnection connection = new SqlConnection(connectionString);
-        SqlCommand command = new SqlCommand(queryString, connection);
-
-        connection.Open();
-
-        try { return BuildListOfPaintings(command); }
-
-        catch (Exception ex) { throw new Exception("ERROR occurred while getting all paintings", ex); }
-    }
-
-
-    public IEnumerable<Painting> GetAllFreeSearch(string searchString)
-    {
-        string queryString = @"SELECT * FROM Painting WHERE Stock > 0 AND (Title LIKE '%' + @searchString + '%' OR Artist LIKE '%' + @searchString + '%' OR [Description] LIKE '%' + @searchString + '%')";
-        using SqlConnection connection = new SqlConnection(connectionString);
-        SqlCommand command = new SqlCommand(queryString, connection);
-
-        command.Parameters.AddWithValue("@searchString", searchString);
-
-        connection.Open();
-
-        try { return BuildListOfPaintings(command); }
-
-        catch (Exception ex) { throw new Exception("ERROR occurred while getting all paintings", ex); }
-    }
-
-    public IEnumerable<Painting> GetAllByCategory(string category)
-    {
-        string queryString = @"SELECT * FROM Painting WHERE stock > 0 and category like '%' + @category + '%'";
-        using SqlConnection connection = new SqlConnection(connectionString);
-        SqlCommand command = new SqlCommand(queryString, connection);
-        command.Parameters.AddWithValue("@category", category);
-
-        connection.Open();
-        try
-        {
-            return BuildListOfPaintings(command);
-
-        }
-        catch (Exception ex)
-        {
-            throw new Exception("ERROR occurred while getting all paintings", ex);
-        }
-    }
-
-    public IEnumerable<Painting> GetAllByCategoryAndFreeSearch(string category, string searchString)
-    {
-        string queryString = @"SELECT * FROM Painting WHERE Stock > 0 AND Category like '%' + @category + '%' AND (Title LIKE '%' + @searchString + '%' OR Artist LIKE '%' + @searchString + '%' OR [Description] LIKE '%' + @searchString + '%')";
-        using SqlConnection connection = new SqlConnection(connectionString);
-        SqlCommand command = new SqlCommand(queryString, connection);
-
-        command.Parameters.AddWithValue("@category", category);
-        command.Parameters.AddWithValue("@searchString", searchString);
-
-        connection.Open();
-
-        try { return BuildListOfPaintings(command); }
-
-        catch (Exception ex) { throw new Exception("ERROR occurred while getting all paintings", ex); }
-    }
-
+   
     private IEnumerable<Painting> BuildListOfPaintings(SqlCommand command)
     {
         SqlDataReader reader = command.ExecuteReader();
@@ -141,7 +78,7 @@ public class PaintingWinAppSqlDao : IPaintingWinAppDataAccess
         return NewGeneratedPaintingId;
     }
 
-    public bool DeletePainting(int id)
+    public bool DeletePaintingById(int id)
     {
         string queryString = @"DELETE FROM Painting WHERE id = @id";
         using SqlConnection connection = new SqlConnection(connectionString);
