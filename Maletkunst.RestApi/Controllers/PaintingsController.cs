@@ -21,7 +21,7 @@ public class PaintingsController : ControllerBase
     [HttpGet]
     public ActionResult<IEnumerable<Painting>> GetAllAvailable()
     {
-        var paintings = _paintingMvcDao.GetAllAvailable();
+        var paintings = _paintingMvcDao.GetAllAvailablePaintings();
 
         if (paintings == null) { return NotFound(); }
 
@@ -34,7 +34,7 @@ public class PaintingsController : ControllerBase
     [HttpGet("all")]
     public ActionResult<IEnumerable<Painting>> GetAll()
     {
-        var paintings = _paintingWinAppDao.GetAll();
+        var paintings = _paintingWinAppDao.GetAllPaintings();
 
         if (paintings == null) { return NotFound(); }
 
@@ -46,7 +46,7 @@ public class PaintingsController : ControllerBase
     [HttpGet("category/{category}")]
     public ActionResult<IEnumerable<Painting>> GetPaintingsByCategory(string category)
     {
-        var paintings = _paintingMvcDao.GetAllByCategory(category);
+        var paintings = _paintingMvcDao.GetAllPaintingsByCategory(category);
 
         if (paintings == null) { return NotFound(); }
 
@@ -58,7 +58,7 @@ public class PaintingsController : ControllerBase
     [HttpGet("category/{category}/{searchString}")]
     public ActionResult<IEnumerable<Painting>> GetPaintingsByCategoryAndFreeSearch(string category, string searchString)
     {
-        var paintings = _paintingMvcDao.GetAllByCategoryAndFreeSearch(category, searchString);
+        var paintings = _paintingMvcDao.GetAllPaintingsByCategoryAndFreeSearch(category, searchString);
 
         if (paintings == null) { return NotFound(); }
 
@@ -68,9 +68,9 @@ public class PaintingsController : ControllerBase
     }
 
     [HttpGet("search/{searchString}")]
-    public ActionResult<IEnumerable<Painting>> GetPaintingsFreeSearch(string searchString)
+    public ActionResult<IEnumerable<Painting>> GetPaintingsByFreeSearch(string searchString)
     {
-        var paintings = _paintingMvcDao.GetAllFreeSearch(searchString);
+        var paintings = _paintingMvcDao.GetAllPaintingsByFreeSearch(searchString);
 
         if (paintings == null) { return NotFound(); }
 
@@ -92,7 +92,7 @@ public class PaintingsController : ControllerBase
     [HttpGet("{id}")]
     public ActionResult<Painting> GetPaintingById(int id)
     {
-        Painting paiting = _paintingMvcDao.GetPaintingbyId(id);
+        Painting paiting = _paintingMvcDao.GetPaintingById(id);
 
         if (paiting == null) { return NotFound(); }
 
@@ -103,7 +103,7 @@ public class PaintingsController : ControllerBase
     [HttpDelete("delete/{id}")]
     public ActionResult<bool> Delete(int id)
     {
-        if (!_paintingWinAppDao.DeletePainting(id))
+        if (!_paintingWinAppDao.DeletePaintingById(id))
         {
             return BadRequest();
         }

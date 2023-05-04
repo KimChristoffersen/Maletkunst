@@ -3,13 +3,13 @@ using RestSharp;
 
 namespace Maletkunst.WinApp.ApiClient;
 
-public class PaintingsRestClient : IPaintingsRestClient
+public class PaintingWinAppApiClient : IPaintingsWinAppDataAccess
 {
     RestSharp.RestClient restClient = new RestSharp.RestClient("https://www.maletkunst.dk/api/v1");
     //RestClient restClient = new RestClient("https://localhost:7150/v1");
 
 
-    public IEnumerable<Painting> GetAll()
+    public IEnumerable<Painting> GetAllPaintings()
     {
         var request = new RestRequest("paintings/all", Method.Get);
         var response = restClient.Execute<List<Painting>>(request);
@@ -23,7 +23,7 @@ public class PaintingsRestClient : IPaintingsRestClient
         return response.Data;
     }
 
-    public bool DeletePainting(int paintingId)
+    public bool DeletePaintingById(int paintingId)
     {
         var request = new RestRequest($"paintings/delete/{paintingId}", Method.Delete);
         var response = restClient.Execute<bool>(request);

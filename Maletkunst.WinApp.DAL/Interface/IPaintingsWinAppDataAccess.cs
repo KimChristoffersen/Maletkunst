@@ -2,11 +2,10 @@
 
 namespace Maletkunst.WinApp.ApiClient;
 
-public interface IPaintingsRestClient
+public interface IPaintingsWinAppDataAccess
 {
-    IEnumerable<Painting> GetAll();
+    IEnumerable<Painting> GetAllPaintings();
     int CreatePainting(Painting painting);
-    bool DeletePainting(int paintingId);
-
+    bool DeletePaintingById(int paintingId);
     bool UpdatePainting(Painting painting);
 }
