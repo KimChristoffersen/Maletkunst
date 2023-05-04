@@ -6,7 +6,7 @@ namespace MaletKunst.WinApp;
 
 public partial class MainForm : Form
 {
-    IPaintingsRestClient paintingsRestClient = new PaintingsRestClient();
+    IPaintingsWinAppDataAccess _client = new PaintingWinAppApiClient();
     public MainForm() => InitializeComponent();
 
     private void MainForm_Load(object sender, EventArgs e) => LoadData();
@@ -31,7 +31,7 @@ public partial class MainForm : Form
 
     private void GetAllPaintings()
     {
-        foreach (var painting in paintingsRestClient.GetAll())
+        foreach (var painting in _client.GetAllPaintings())
         {
             listBoxPaintings.Items.Add(painting);
         }
@@ -50,11 +50,12 @@ public partial class MainForm : Form
             textBoxId.Text = painting.Id.ToString();
             textBoxTitle.Text = painting.Title;
             textBoxPrice.Text = painting.Price.ToString();
-            textBoxStock.Text = painting.Stock.ToString();
             textBoxArtist.Text = painting.Artist;
             comboBoxCategory.Text = painting.Category;
             textBoxDescription.Text = painting.Description;
-
+            if (painting.Stock == 0) { radioButtonUnavailable.Checked = true; }
+            if (painting.Stock == 1) { radioButtonAvailable.Checked = true; }
+            textBoxStock.Text = painting.Stock.ToString();
             LoadImage(painting);
         }
     }
@@ -115,7 +116,7 @@ public partial class MainForm : Form
             Description = textBoxDescription.Text
             // Picture....
         };
-        int createdId = paintingsRestClient.CreatePainting(painting);
+        int createdId = _client.CreatePainting(painting);
         if (createdId == 0)
         {
             MessageBox.Show("Oprettelse af maleri mislykkedes", "Fejl", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -134,7 +135,7 @@ public partial class MainForm : Form
     private void DeletePainting()
     {
         int paintingToDeleteId = int.Parse(textBoxId.Text);
-        if (paintingsRestClient.DeletePainting(paintingToDeleteId))
+        if (_client.DeletePaintingById(paintingToDeleteId))
         {
             MessageBox.Show($"Maleri med id {paintingToDeleteId} er slettet", "Succes", MessageBoxButtons.OK, MessageBoxIcon.None);
             listBoxPaintings.Items.Clear();
@@ -151,18 +152,21 @@ public partial class MainForm : Form
 
     private void UpdatePainting()
     {
+        int stock = 0;
+        if(radioButtonAvailable.Checked == true) { stock = 1; } else { stock = 0; }
+
         Painting painting = new()
         {
             Id = int.Parse(textBoxId.Text),
             Title = textBoxTitle.Text,
             Price = decimal.Parse(textBoxPrice.Text),
-            Stock = int.Parse(textBoxStock.Text),
+            Stock = stock,
             Artist = textBoxArtist.Text,
             Category = comboBoxCategory.Text,
             Description = textBoxDescription.Text
             // Picture....
         };
-        if (!paintingsRestClient.UpdatePainting(painting))
+        if (!_client.UpdatePainting(painting))
         {
             MessageBox.Show("Opdatering af maleri mislykkedes", "Fejl", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
