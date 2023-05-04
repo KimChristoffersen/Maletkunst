@@ -6,7 +6,7 @@ namespace Maletkunst.RestApi.Test;
 public class Tests
 {
 
-    IPaintingMvcDataAccess _paintingDAO = new PaintingWinAppSqlDao();
+    IPaintingMvcDataAccess _client = new PaintingMvcSqlDao();
 
     [SetUp]
     public void Setup()
@@ -18,7 +18,7 @@ public class Tests
     public void GetAllTest()
     {
         // ARRANGE
-        var _paintings = _paintingDAO.GetAll().Take(10);
+        var _paintings = _client.GetAllAvailablePaintings().Take(10);
 
         // ACT
 
