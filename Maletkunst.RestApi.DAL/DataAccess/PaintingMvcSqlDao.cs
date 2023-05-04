@@ -74,7 +74,7 @@ public class PaintingMvcSqlDao : IPaintingMvcDataAccess
     private IEnumerable<Painting> BuildListOfPaintings(SqlCommand command)
     {
         SqlDataReader reader = command.ExecuteReader();
-        List<Painting> paintings = new List<Painting>();
+        ICollection<Painting> paintings = new List<Painting>();
         while (reader.Read())
         {
             paintings.Add(new Painting()
@@ -120,4 +120,7 @@ public class PaintingMvcSqlDao : IPaintingMvcDataAccess
         }
         return painting;
     }
+
+
+
 }

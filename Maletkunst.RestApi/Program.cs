@@ -18,6 +18,10 @@ public class Program
 
         builder.Services.AddScoped<IPaintingWinAppDataAccess, PaintingWinAppSqlDao>();
         builder.Services.AddScoped<IPaintingMvcDataAccess, PaintingMvcSqlDao>();
+        builder.Services.AddScoped<IOrderMvcDataAccess, OrderMvcSqlDao>();
+        //builder.Services.AddScoped<IOrderLineMvcDataAccess, OrderLineMvcSqlDao>();
+
+
 
         var app = builder.Build();
 
