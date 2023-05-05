@@ -1,14 +1,19 @@
 ﻿using Maletkunst.RestApi.DAL.Interface;
 using Maletkunst.RestApi.DAL.Model;
+
 using System.Data.SqlClient;
 
 namespace Maletkunst.RestApi.DAL.DataAccess;
 
 public class PaintingWinAppSqlDao : IPaintingWinAppDataAccess
 {
-    private const string connectionString = @"Data Source=hildur.ucn.dk; Initial Catalog=DMA-CSD-V221_10434660; User ID=DMA-CSD-V221_10434660; Password=Password1!;";
+    private string connectionString = @"Data Source=hildur.ucn.dk; Initial Catalog=DMA-CSD-V221_10434660; User ID=DMA-CSD-V221_10434660; Password=Password1!;";
 
-    public IEnumerable<Painting> GetAllPaintings()
+	public PaintingWinAppSqlDao(string connectionString)
+	{
+		this.connectionString = connectionString;
+	}
+	public IEnumerable<Painting> GetAllPaintings()
     {
         string queryString = @"SELECT * FROM Painting";
         using SqlConnection connection = new SqlConnection(connectionString);
