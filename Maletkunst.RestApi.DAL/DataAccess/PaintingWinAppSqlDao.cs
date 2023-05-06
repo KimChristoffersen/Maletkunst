@@ -83,26 +83,53 @@ public class PaintingWinAppSqlDao : IPaintingWinAppDataAccess
         return NewGeneratedPaintingId;
     }
 
-    public bool DeletePaintingById(int id)
-    {
-        string queryString = @"DELETE FROM Painting WHERE id = @id";
-        using SqlConnection connection = new SqlConnection(connectionString);
-        SqlCommand command = new SqlCommand(queryString, connection);
-        command.Parameters.AddWithValue("@id", id);
-        connection.Open();
+    //Passer ikke test - returner altid true
+	//public bool DeletePaintingById(int id)
+	//{
+	//    string queryString = @"DELETE FROM Painting WHERE id = @id";
+	//    using SqlConnection connection = new SqlConnection(connectionString);
+	//    SqlCommand command = new SqlCommand(queryString, connection);
+	//    command.Parameters.AddWithValue("@id", id);
+	//    connection.Open();
 
-        try
-        {
-            command.ExecuteNonQuery();
-            return true;
-        }
-        catch (Exception ex)
-        {
-            throw new Exception("ERROR occurred while deleting painting", ex);
-        }
-    }
+	//    try
+	//    {
+	//        command.ExecuteNonQuery();
+	//        return true;
+	//    }
+	//    catch (Exception ex)
+	//    {
+	//        throw new Exception("ERROR occurred while deleting painting", ex);
+	//    }
+	//}
 
-    public bool UpdatePainting(Painting painting)
+	public bool DeletePaintingById(int id)
+	{
+		string queryString = @"DELETE FROM Painting WHERE id = @id";
+		using SqlConnection connection = new SqlConnection(connectionString);
+		SqlCommand command = new SqlCommand(queryString, connection);
+		command.Parameters.AddWithValue("@id", id);
+		connection.Open();
+
+		try
+		{
+			int rowsAffected = command.ExecuteNonQuery();
+
+			if (rowsAffected <= 0)
+			{
+				return false;
+			}
+
+			return true;
+		}
+		catch (Exception ex)
+		{
+			throw new Exception("ERROR occurred while deleting painting", ex);
+		}
+	}
+
+
+	public bool UpdatePainting(Painting painting)
     {
         string queryString = @"UPDATE Painting set Title =@title, Price = @price, Stock = @stock, Artist = @artist, Description = @description, Category = @category WHERE id = @id";
         using SqlConnection connection = new SqlConnection(connectionString);

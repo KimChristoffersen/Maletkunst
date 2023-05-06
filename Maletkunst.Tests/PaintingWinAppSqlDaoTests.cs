@@ -11,7 +11,7 @@ using NUnit.Framework;
 namespace Maletkunst.Tests
 {
 	[TestFixture]
-	public class Tests
+	public class PaintingWinAppSqlDaoTests
 	{
 		#region Fields
 		private string _developer;
@@ -34,10 +34,10 @@ namespace Maletkunst.Tests
 
 			// Access to database
 			_paintingWinAppSqlDao = new PaintingWinAppSqlDao(_connectionString);
-			
+
 			// Set up list for painting ids
 			paintingIds = new List<int>();
-			
+
 			// Setup test data
 			insertTestData();
 		}
@@ -67,6 +67,24 @@ namespace Maletkunst.Tests
 			Assert.That(actualID, Is.EqualTo(expectedID), errorMessage);
 		}
 
+
+		[Category("Database")]
+		[Description("Integration test for getting all paintings from the Database")]
+		[Test]
+		public void GetAllPaintings_GetsAllPaintings_ReturnsListOfPaintings()
+		{
+
+			//Arrange
+
+			// Act
+			List<Painting> paintings = _paintingWinAppSqlDao.GetAllPaintings().ToList();
+
+			// Assert
+			int expectedCount = paintingIds.Count;
+			Assert.That(paintings.Count, Is.EqualTo(expectedCount), $"Test Failed: expected painting count {expectedCount} but got {paintings.Count}");
+		}
+
+
 		[Category("Database")]
 		[Description("Integration test for deleting a painting when id is valid in Database")]
 		[Test]
@@ -82,6 +100,21 @@ namespace Maletkunst.Tests
 			string errorMessage = $"Test Failed: Should have returned true: Expected: {true}, Actual: {expectedTrue}";
 			Assert.IsTrue(expectedTrue, errorMessage);
 		}
+
+		[Category("Database")]
+		[Description("Integration test for deleting a painting when id is invalid in Database")]
+		[TestCase(-1)]
+		[TestCase(0)]
+		public void DeletePainting_WhenPaintingIDIsInvalid_ReturnsFalse(int paintingIdToDelete)
+		{
+			// Act
+			bool expectedFalse = _paintingWinAppSqlDao.DeletePaintingById(paintingIdToDelete);
+
+			// Assert
+			string errorMessage = $"Test Failed: Should not delete anything and return false: Expected: {false}, Actual: {expectedFalse}";
+			Assert.IsFalse(expectedFalse, errorMessage);
+		}
+
 
 		// Tilføj flere tests. Også for invalide inputs
 
@@ -141,8 +174,10 @@ namespace Maletkunst.Tests
 			List<Painting> testData = new List<Painting>
 		{
 			new Painting {Title = _developer + "Starry Night", Price = 5000, Stock = 1, Artist = "Van Gogh", Description = "A masterpiece", Category = "Post-Impressionism"},
-			new Painting {Title = _developer + "The Scream", Price = 4500, Stock = 1, Artist = "Edvard Munch", Description = "An iconic painting", Category = "Expressionism"}
-		};
+			new Painting {Title = _developer + "The Scream", Price = 4500, Stock = 1, Artist = "Edvard Munch", Description = "An iconic painting", Category = "Expressionism"},
+			new Painting {Title = _developer + "The Persistence of Memory", Price = 4000, Stock = 0, Artist = "Salvador Dalí", Description = "A surreal painting", Category = "Surrealism"}
+
+			};
 			return testData;
 		}
 
