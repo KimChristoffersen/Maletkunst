@@ -13,8 +13,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maletkunst.RestApi", "Malet
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maletkunst.MVC", "Maletkunst.MVC\Maletkunst.MVC.csproj", "{F9F118B1-C5AF-45E0-9DC0-2A60ADC936DE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maletkunst.Interfaces", "Maletkunst.Interfaces\Maletkunst.Interfaces.csproj", "{F650E82C-3EB1-4C2F-A8E6-C601EECF909A}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maletkunst.RestApi.Test", "Maletkunst.RestApi.Test\Maletkunst.RestApi.Test.csproj", "{078037D3-896E-4B6C-ACFC-D7BCDC26DD41}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maletkunst.WinApp.ApiClient", "Maletkunst.WinApp.ApiClient\Maletkunst.WinApp.ApiClient.csproj", "{00F33A36-DE13-4C51-AE29-7A6FB4E0B08D}"
@@ -23,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maletkunst.WinApp", "Maletk
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maletkunst.MVC.ApiClient", "Maletkunst.MVC.ApiClient\Maletkunst.MVC.ApiClient.csproj", "{F7702814-DC7D-4E3E-94B3-786C4301129D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maletkunst.Tests", "Maletkunst.Tests\Maletkunst.Tests.csproj", "{02AD5DEE-DF54-401C-84AB-CC35E04ABFF6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maletkunst.Tests", "Maletkunst.Tests\Maletkunst.Tests.csproj", "{02AD5DEE-DF54-401C-84AB-CC35E04ABFF6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,10 +49,6 @@ Global
 		{F9F118B1-C5AF-45E0-9DC0-2A60ADC936DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F9F118B1-C5AF-45E0-9DC0-2A60ADC936DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F9F118B1-C5AF-45E0-9DC0-2A60ADC936DE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F650E82C-3EB1-4C2F-A8E6-C601EECF909A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F650E82C-3EB1-4C2F-A8E6-C601EECF909A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F650E82C-3EB1-4C2F-A8E6-C601EECF909A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F650E82C-3EB1-4C2F-A8E6-C601EECF909A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{078037D3-896E-4B6C-ACFC-D7BCDC26DD41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{078037D3-896E-4B6C-ACFC-D7BCDC26DD41}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{078037D3-896E-4B6C-ACFC-D7BCDC26DD41}.Release|Any CPU.ActiveCfg = Release|Any CPU
