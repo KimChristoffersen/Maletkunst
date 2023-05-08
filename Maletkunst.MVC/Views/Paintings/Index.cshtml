@@ -24,15 +24,15 @@ else
 		@foreach (var item in Model)
 		{
 			<div class="Paintings">
-				@*<img src="https://via.placeholder.com/150x150.png?text=No+Image" alt="@item.Title">*@
-				<img src="/images/@(item.Id.ToString() + ".jpg")" height="150" width="150">
-
-				<br>
-				<a href="/Paintings/Details?id=@item.Id">@item.Title</a>
-				<br>
-				<p>lavet af: @item.Artist</p>
-				<p>Kategori: @item.Category</p>
-				<p>Pris: @item.Price</p>
+				<a href="/Paintings/Details?id=@item.Id">
+					<img src="/thumbnails/@(item.Id.ToString() + ".jpg")">
+				</a>
+				<br><br>
+				<h3><b>@item.Title</b></h3>
+				<p><b>Kunstner:</b> @item.Artist<br>
+				<b>Kategori:</b> @item.Category<br>
+					<b>@item.Price kr.</b>
+				</p>
 				<form asp-controller="ShoppingCart" asp-action="Add" method="post" class="d-inline-block">
 					<input type="hidden" name="id" value="@item.Id" />
 					<button type="submit" class="add-to-cart-button">Tilføj til kurv</button>

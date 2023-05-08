@@ -20,7 +20,9 @@
             <div class="row cart-item">
                 <div class="col-md-6">
                     <div class="product-details">
-                        <img src="https://via.placeholder.com/150x150" alt="@item.Name" class="product-image">
+                        <a href="/Paintings/Details?id=@item.Id">
+                        <img src="/thumbnails/@(item.Id.ToString() + ".jpg")" alt="@item.Name" class="product-image">
+                        </a>
                         <span class="product-name">@item.Name</span>
                     </div>
                 </div>

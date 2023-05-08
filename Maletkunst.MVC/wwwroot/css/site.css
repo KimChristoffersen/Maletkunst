@@ -68,12 +68,20 @@ body {
     flex-wrap: wrap;
 }
 
+    .Paintings-container img {
+        max-width: 300px;
+        max-height: 800px;
+        width: auto;
+        height: auto;
+    }
+
+
 .Paintings {
-    border: 1px solid black;
-    padding: 10px;
-    margin: 10px;
-    width: 300px;
-    text-align: center;
+    border: 0px solid black;
+    padding: 25px;
+    margin: 25px;
+    width: 250px;
+    text-align: Left;
     background-color: #f2f2f2 !important;
 }
 
@@ -236,4 +244,23 @@ body {
 
 .text-right {
     text-align: right;
+}
+
+/* ==========================================================================
+   Detail Styles
+   ========================================================================== */
+
+.Details img {
+    max-width: 1200px;
+    width: 100%;
+    height: auto;
+}
+
+.Details {
+    border: 0px solid black;
+    padding: 50px;
+    margin: 0px;
+    width: 100%;
+    text-align: Left;
+    background-color: #f2f2f2 !important;
 }
