@@ -55,14 +55,13 @@ public partial class MainForm : Form
             textBoxDescription.Text = painting.Description;
             if (painting.Stock == 0) { radioButtonUnavailable.Checked = true; }
             if (painting.Stock == 1) { radioButtonAvailable.Checked = true; }
-            textBoxStock.Text = painting.Stock.ToString();
             LoadImage(painting);
         }
     }
 
     private void LoadImage(Painting painting)
     {
-        string imagePath = $"https://www.maletkunst.dk/images/{painting.Id}.jpg";
+        string imagePath = $"https://www.maletkunst.dk/thumbnails/{painting.Id}.jpg";
         try
         {
             using (var webClient = new WebClient())
@@ -90,7 +89,6 @@ public partial class MainForm : Form
         textBoxId.Text = "";
         textBoxTitle.Text = "";
         textBoxPrice.Text = "";
-        textBoxStock.Text = "";
         textBoxArtist.Text = "";
         comboBoxCategory.Text = "";
         textBoxDescription.Text = "";
@@ -106,11 +104,14 @@ public partial class MainForm : Form
 
     private void CreatePainting()
     {
+        int stock = 0;
+        if (radioButtonAvailable.Checked == true) { stock = 1; } else { stock = 0; }
+
         Painting painting = new()
         {
             Title = textBoxTitle.Text,
             Price = decimal.Parse(textBoxPrice.Text),
-            Stock = int.Parse(textBoxStock.Text),
+            Stock = stock,
             Artist = textBoxArtist.Text,
             Category = comboBoxCategory.Text,
             Description = textBoxDescription.Text
@@ -153,7 +154,7 @@ public partial class MainForm : Form
     private void UpdatePainting()
     {
         int stock = 0;
-        if(radioButtonAvailable.Checked == true) { stock = 1; } else { stock = 0; }
+        if (radioButtonAvailable.Checked == true) { stock = 1; } else { stock = 0; }
 
         Painting painting = new()
         {
