@@ -83,26 +83,6 @@ public class PaintingWinAppSqlDao : IPaintingWinAppDataAccess
         return NewGeneratedPaintingId;
     }
 
-    //Passer ikke test - returner altid true
-	//public bool DeletePaintingById(int id)
-	//{
-	//    string queryString = @"DELETE FROM Painting WHERE id = @id";
-	//    using SqlConnection connection = new SqlConnection(connectionString);
-	//    SqlCommand command = new SqlCommand(queryString, connection);
-	//    command.Parameters.AddWithValue("@id", id);
-	//    connection.Open();
-
-	//    try
-	//    {
-	//        command.ExecuteNonQuery();
-	//        return true;
-	//    }
-	//    catch (Exception ex)
-	//    {
-	//        throw new Exception("ERROR occurred while deleting painting", ex);
-	//    }
-	//}
-
 	public bool DeletePaintingById(int id)
 	{
 		string queryString = @"DELETE FROM Painting WHERE id = @id";
@@ -154,34 +134,34 @@ public class PaintingWinAppSqlDao : IPaintingWinAppDataAccess
         }
     }
 
-    public Painting GetPaintingbyId(int id)
-    {
-        Painting painting = new Painting();
-        string queryString = @"SELECT * FROM Painting where id = @id";
-        using SqlConnection connection = new SqlConnection(connectionString);
-        SqlCommand command = new SqlCommand(queryString, connection);
-        command.Parameters.AddWithValue("@id", id);
+    //public Painting GetPaintingbyId(int id)
+    //{
+    //    Painting painting = new Painting();
+    //    string queryString = @"SELECT * FROM Painting where id = @id";
+    //    using SqlConnection connection = new SqlConnection(connectionString);
+    //    SqlCommand command = new SqlCommand(queryString, connection);
+    //    command.Parameters.AddWithValue("@id", id);
 
-        connection.Open();
-        try
-        {
-            SqlDataReader reader = command.ExecuteReader();
-            while (reader.Read())
-            {
-                painting.Id = (int)reader["ID"];
-                painting.Title = (string)reader["Title"];
-                painting.Price = (decimal)reader["Price"];
-                painting.Stock = (int)reader["Stock"];
-                painting.Artist = (string)reader["Artist"];
-                painting.Description = (string)reader["Description"];
-                painting.Category = (string)reader["Category"];
-            }
-        }
-        catch (Exception)
-        {
-            throw new Exception($"ERROR occurred while getting painting with {id} a painting");
-        }
-        return painting;
-    }
+    //    connection.Open();
+    //    try
+    //    {
+    //        SqlDataReader reader = command.ExecuteReader();
+    //        while (reader.Read())
+    //        {
+    //            painting.Id = (int)reader["ID"];
+    //            painting.Title = (string)reader["Title"];
+    //            painting.Price = (decimal)reader["Price"];
+    //            painting.Stock = (int)reader["Stock"];
+    //            painting.Artist = (string)reader["Artist"];
+    //            painting.Description = (string)reader["Description"];
+    //            painting.Category = (string)reader["Category"];
+    //        }
+    //    }
+    //    catch (Exception)
+    //    {
+    //        throw new Exception($"ERROR occurred while getting painting with {id} a painting");
+    //    }
+    //    return painting;
+    //}
 
 }
