@@ -1,5 +1,5 @@
-﻿using Maletkunst.RestApi.DAL.Interface;
-using Maletkunst.RestApi.DAL.Model;
+﻿using Maletkunst.DAL.Interfaces;
+using Maletkunst.DAL.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Maletkunst.RestApi.Controllers;

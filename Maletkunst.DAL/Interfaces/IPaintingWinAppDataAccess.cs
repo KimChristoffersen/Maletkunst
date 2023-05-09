@@ -1,6 +1,6 @@
-﻿using Maletkunst.RestApi.DAL.Model;
+﻿using Maletkunst.DAL.Models;
 
-namespace Maletkunst.RestApi.DAL.Interface;
+namespace Maletkunst.DAL.Interfaces;
 
 public interface IPaintingWinAppDataAccess
 {

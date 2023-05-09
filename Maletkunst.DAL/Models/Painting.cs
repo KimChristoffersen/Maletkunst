@@ -1,4 +1,4 @@
-﻿namespace Maletkunst.MVC.DAL.Model;
+﻿namespace Maletkunst.DAL.Models;
 
 public class Painting
 {
@@ -30,9 +30,5 @@ public class Painting
 
     }
 
-    //Er denne nødvendig?
-	public override string ToString()
-	{
-		return $"{Id} {Title} ({Price}) ";
-	}
+    public override string? ToString() => $"Id: {Id}, Titel: {Title}";
 }

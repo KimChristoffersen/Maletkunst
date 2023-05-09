@@ -1,12 +1,13 @@
-using Maletkunst.WinApp.ApiClient;
-using Maletkunst.WinApp.DAL.Model;
+using Maletkunst.DAL.Interfaces;
+using Maletkunst.DAL.Models;
+using Maletkunst.DAL.RestClient;
 using System.Net;
 
 namespace MaletKunst.WinApp;
 
 public partial class MainForm : Form
 {
-    IPaintingsWinAppDataAccess _client = new PaintingWinAppApiClient();
+    IPaintingWinAppDataAccess _client = new PaintingWinAppApiClient();
     public MainForm() => InitializeComponent();
 
     private void MainForm_Load(object sender, EventArgs e) => LoadData();

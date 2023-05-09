@@ -1,20 +1,20 @@
-﻿using Maletkunst.RestApi.DAL.Interface;
-using Maletkunst.RestApi.DAL.Model;
+﻿using Maletkunst.DAL.Interfaces;
+using Maletkunst.DAL.Models;
 
 using System.Data.SqlClient;
 
-namespace Maletkunst.RestApi.DAL.DataAccess;
+namespace Maletkunst.DAL.SQL;
 
 public class PaintingWinAppSqlDao : IPaintingWinAppDataAccess
 {
     private string connectionString = @"Data Source=hildur.ucn.dk; Initial Catalog=DMA-CSD-V221_10434660; User ID=DMA-CSD-V221_10434660; Password=Password1!;";
 
-	//public PaintingWinAppSqlDao(string connectionString)
-	//{
-	//	this.connectionString = connectionString;
-	//}
+    //public PaintingWinAppSqlDao(string connectionString)
+    //{
+    //	this.connectionString = connectionString;
+    //}
 
-	public IEnumerable<Painting> GetAllPaintings()
+    public IEnumerable<Painting> GetAllPaintings()
     {
         string queryString = @"SELECT * FROM Painting";
         using SqlConnection connection = new SqlConnection(connectionString);
@@ -26,7 +26,7 @@ public class PaintingWinAppSqlDao : IPaintingWinAppDataAccess
 
         catch (Exception ex) { throw new Exception("ERROR occurred while getting all paintings", ex); }
     }
-   
+
     private IEnumerable<Painting> BuildListOfPaintings(SqlCommand command)
     {
         SqlDataReader reader = command.ExecuteReader();
@@ -84,33 +84,33 @@ public class PaintingWinAppSqlDao : IPaintingWinAppDataAccess
         return NewGeneratedPaintingId;
     }
 
-	public bool DeletePaintingById(int id)
-	{
-		string queryString = @"DELETE FROM Painting WHERE id = @id";
-		using SqlConnection connection = new SqlConnection(connectionString);
-		SqlCommand command = new SqlCommand(queryString, connection);
-		command.Parameters.AddWithValue("@id", id);
-		connection.Open();
+    public bool DeletePaintingById(int id)
+    {
+        string queryString = @"DELETE FROM Painting WHERE id = @id";
+        using SqlConnection connection = new SqlConnection(connectionString);
+        SqlCommand command = new SqlCommand(queryString, connection);
+        command.Parameters.AddWithValue("@id", id);
+        connection.Open();
 
-		try
-		{
-			int rowsAffected = command.ExecuteNonQuery();
+        try
+        {
+            int rowsAffected = command.ExecuteNonQuery();
 
-			if (rowsAffected <= 0)
-			{
-				return false;
-			}
+            if (rowsAffected <= 0)
+            {
+                return false;
+            }
 
-			return true;
-		}
-		catch (Exception ex)
-		{
-			throw new Exception("ERROR occurred while deleting painting", ex);
-		}
-	}
+            return true;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("ERROR occurred while deleting painting", ex);
+        }
+    }
 
 
-	public bool UpdatePainting(Painting painting)
+    public bool UpdatePainting(Painting painting)
     {
         string queryString = @"UPDATE Painting set Title =@title, Price = @price, Stock = @stock, Artist = @artist, Description = @description, Category = @category WHERE id = @id";
         using SqlConnection connection = new SqlConnection(connectionString);

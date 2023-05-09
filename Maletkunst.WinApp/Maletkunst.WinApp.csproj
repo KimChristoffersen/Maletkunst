@@ -9,8 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Maletkunst.WinApp.ApiClient\Maletkunst.WinApp.ApiClient.csproj" />
-    <ProjectReference Include="..\Maletkunst.WinApp.DAL\Maletkunst.WinApp.DAL.csproj" />
+    <ProjectReference Include="..\Maletkunst.DAL\Maletkunst.DAL.csproj" />
   </ItemGroup>
 
 </Project>

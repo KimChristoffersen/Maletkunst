@@ -1,4 +1,4 @@
-﻿namespace Maletkunst.RestApi.DAL.Model;
+﻿namespace Maletkunst.DAL.Models;
 
 public class OrderLine
 {

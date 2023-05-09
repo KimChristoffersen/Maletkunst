@@ -1,8 +1,8 @@
-﻿using Maletkunst.RestApi.DAL.Interface;
-using Maletkunst.RestApi.DAL.Model;
+﻿using Maletkunst.DAL.Interfaces;
+using Maletkunst.DAL.Models;
 using System.Data.SqlClient;
 
-namespace Maletkunst.RestApi.DAL.DataAccess;
+namespace Maletkunst.DAL.SQL;
 
 public class PaintingMvcSqlDao : IPaintingMvcDataAccess
 {

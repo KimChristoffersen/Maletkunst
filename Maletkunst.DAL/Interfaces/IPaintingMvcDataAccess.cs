@@ -1,11 +1,6 @@
-﻿using Maletkunst.MVC.DAL.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Maletkunst.DAL.Models;
 
-namespace Maletkunst.MVC.DAL.Interface
+namespace Maletkunst.DAL.Interfaces
 {
     public interface IPaintingMvcDataAccess
     {

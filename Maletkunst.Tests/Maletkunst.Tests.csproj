@@ -17,8 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Maletkunst.RestApi.DAL\Maletkunst.RestApi.DAL.csproj" />
-    <ProjectReference Include="..\Maletkunst.WinApp.DAL\Maletkunst.WinApp.DAL.csproj" />
+    <ProjectReference Include="..\Maletkunst.DAL\Maletkunst.DAL.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Maletkunst.RestApi.DAL.Model;
-using Maletkunst.RestApi.DAL.Interface;
+using Maletkunst.DAL.Interfaces;
+using Maletkunst.DAL.Models;
 
 namespace Maletkunst.RestApi.Controllers;
 
@@ -55,17 +55,17 @@ public class PaintingsController : ControllerBase
         return Ok(paintings);
     }
 
-    [HttpGet("category/{category}/{searchString}")]
-    public ActionResult<IEnumerable<Painting>> GetPaintingsByCategoryAndFreeSearch(string category, string searchString)
-    {
-        var paintings = _paintingMvcDao.GetAllPaintingsByCategoryAndFreeSearch(category, searchString);
+    //[HttpGet("category/{category}/{searchString}")]
+    //public ActionResult<IEnumerable<Painting>> GetPaintingsByCategoryAndFreeSearch(string category, string searchString)
+    //{
+    //    var paintings = _paintingMvcDao.GetAllPaintingsByCategoryAndFreeSearch(category, searchString);
 
-        if (paintings == null) { return NotFound(); }
+    //    if (paintings == null) { return NotFound(); }
 
-        if (!paintings.Any()) { return NoContent(); }
+    //    if (!paintings.Any()) { return NoContent(); }
 
-        return Ok(paintings);
-    }
+    //    return Ok(paintings);
+    //}
 
     [HttpGet("search/{searchString}")]
     public ActionResult<IEnumerable<Painting>> GetPaintingsByFreeSearch(string searchString)

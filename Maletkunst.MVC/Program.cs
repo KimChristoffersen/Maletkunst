@@ -1,5 +1,5 @@
-using Maletkunst.MVC.ApiClient;
-using Maletkunst.MVC.DAL.Interface;
+using Maletkunst.DAL.Interfaces;
+using Maletkunst.DAL.RestClient;
 
 namespace Maletkunst.MVC
 {

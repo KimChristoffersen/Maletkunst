@@ -1,9 +1,10 @@
-﻿using Maletkunst.WinApp.DAL.Model;
+﻿using Maletkunst.DAL.Interfaces;
+using Maletkunst.DAL.Models;
 using RestSharp;
 
-namespace Maletkunst.WinApp.ApiClient;
+namespace Maletkunst.DAL.RestClient;
 
-public class PaintingWinAppApiClient : IPaintingsWinAppDataAccess
+public class PaintingWinAppApiClient : IPaintingWinAppDataAccess
 {
     RestSharp.RestClient restClient = new RestSharp.RestClient("https://www.maletkunst.dk/api/v1");
     //RestClient restClient = new RestClient("https://localhost:7150/v1");
@@ -43,6 +44,6 @@ public class PaintingWinAppApiClient : IPaintingsWinAppDataAccess
         if (!response.IsCompleted) { return false; }
         return true;
 
-        
+
     }
 }

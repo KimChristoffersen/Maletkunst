@@ -1,5 +1,5 @@
-using Maletkunst.RestApi.DAL.DataAccess;
-using Maletkunst.RestApi.DAL.Interface;
+using Maletkunst.DAL.Interfaces;
+using Maletkunst.DAL.SQL;
 
 namespace Maletkunst.RestApi;
 

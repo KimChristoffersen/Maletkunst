@@ -1,9 +1,8 @@
-﻿using Maletkunst.MVC.DAL.Interface;
-using Maletkunst.MVC.DAL.Model;
+﻿using Maletkunst.DAL.Interfaces;
+using Maletkunst.DAL.Models;
 using RestSharp;
-using static System.Net.WebRequestMethods;
 
-namespace Maletkunst.MVC.ApiClient;
+namespace Maletkunst.DAL.RestClient;
 
 
 public class PaintingRestApiClient : IPaintingMvcDataAccess
@@ -16,7 +15,7 @@ public class PaintingRestApiClient : IPaintingMvcDataAccess
 
         restUrl = "https://www.maletkunst.dk/api/v1/Paintings";
         //restUrl = "https://localhost:7150/v1/Paintings";
-        
+
         //Robert URL nedenunder
         //restUrl = "https://localhost:7104/Paintings";
 
@@ -51,13 +50,13 @@ public class PaintingRestApiClient : IPaintingMvcDataAccess
     //    return response.Data;
     //}
 
-	public Painting GetPaintingById(int id)
-	{
-		var request = new RestRequest("{id}");
-		request.AddUrlSegment("id", id);
-		var response = client.Execute<Painting>(request);
-		return response.Data;
-	}
+    public Painting GetPaintingById(int id)
+    {
+        var request = new RestRequest("{id}");
+        request.AddUrlSegment("id", id);
+        var response = client.Execute<Painting>(request);
+        return response.Data;
+    }
 }
 
 

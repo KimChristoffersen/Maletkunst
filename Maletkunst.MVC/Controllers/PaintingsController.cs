@@ -1,5 +1,5 @@
-﻿using Maletkunst.MVC.DAL.Interface;
-using Maletkunst.MVC.DAL.Model;
+﻿using Maletkunst.DAL.Interfaces;
+using Maletkunst.DAL.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Maletkunst.MVC.Controllers;

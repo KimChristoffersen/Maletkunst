@@ -1,9 +1,8 @@
-﻿using Maletkunst.RestApi.DAL.DataAccess;
-using Maletkunst.RestApi.DAL.Interface;
-using Maletkunst.RestApi.DAL.Model;
+﻿using Maletkunst.DAL.Interfaces;
+using Maletkunst.DAL.Models;
 using System.Data.SqlClient;
 
-namespace Maletkunst.RestApi;
+namespace Maletkunst.DAL.SQL;
 
 public class OrderLineMvcSqlDao : IOrderLineMvcDataAccess
 {
@@ -57,5 +56,5 @@ public class OrderLineMvcSqlDao : IOrderLineMvcDataAccess
         return orderLines;
     }
 
-  
+
 }

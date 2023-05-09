@@ -7,8 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Maletkunst.MVC.ApiClient\Maletkunst.MVC.ApiClient.csproj" />
-    <ProjectReference Include="..\Maletkunst.MVC.DAL\Maletkunst.MVC.DAL.csproj" />
+    <ProjectReference Include="..\Maletkunst.DAL\Maletkunst.DAL.csproj" />
   </ItemGroup>
 
 </Project>
