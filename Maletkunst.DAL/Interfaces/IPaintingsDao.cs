@@ -2,7 +2,7 @@
 
 namespace Maletkunst.DAL.Interfaces;
 
-public interface IPaintingWinAppDataAccess
+public interface IPaintingsDao
 {
     IEnumerable<Painting> GetAllPaintings();
     int CreatePainting(Painting painting);

@@ -16,9 +16,9 @@ public class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
-        builder.Services.AddScoped<IPaintingWinAppDataAccess, PaintingWinAppSqlDao>();
-        builder.Services.AddScoped<IPaintingMvcDataAccess, PaintingMvcSqlDao>();
-        builder.Services.AddScoped<IOrderMvcDataAccess, OrderMvcSqlDao>();
+        builder.Services.AddScoped<IPaintingsDao, PaintingsSqlDao>();
+        builder.Services.AddScoped<IPaintingsDataAccess, PaintingsSqlDataAccess>();
+        builder.Services.AddScoped<IOrdersDataAccess, OrdersSqlDao>();
         //builder.Services.AddScoped<IOrderLineMvcDataAccess, OrderLineMvcSqlDao>();
 
 

@@ -4,7 +4,7 @@ using RestSharp;
 
 namespace Maletkunst.DAL.RestClient;
 
-public class PaintingWinAppApiClient : IPaintingWinAppDataAccess
+public class PaintingsDao : IPaintingsDao
 {
     RestSharp.RestClient restClient = new RestSharp.RestClient("https://www.maletkunst.dk/api/v1");
     //RestClient restClient = new RestClient("https://localhost:7150/v1");

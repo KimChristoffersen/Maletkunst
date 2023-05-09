@@ -5,12 +5,12 @@ using RestSharp;
 namespace Maletkunst.DAL.RestClient;
 
 
-public class PaintingRestApiClient : IPaintingMvcDataAccess
+public class PaintingsDataAccess : IPaintingsDataAccess
 {
     private readonly string restUrl;
     public readonly RestSharp.RestClient client;
 
-    public PaintingRestApiClient()
+    public PaintingsDataAccess()
     {
 
         restUrl = "https://www.maletkunst.dk/api/v1/Paintings";

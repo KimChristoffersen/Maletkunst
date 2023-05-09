@@ -4,7 +4,7 @@ using System.Data.SqlClient;
 
 namespace Maletkunst.DAL.SQL;
 
-public class PaintingMvcSqlDao : IPaintingMvcDataAccess
+public class PaintingsSqlDataAccess : IPaintingsDataAccess
 {
     private const string connectionString = @"Data Source=hildur.ucn.dk; Initial Catalog=DMA-CSD-V221_10434660; User ID=DMA-CSD-V221_10434660; Password=Password1!;";
 

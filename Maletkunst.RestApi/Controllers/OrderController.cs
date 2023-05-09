@@ -8,9 +8,9 @@ namespace Maletkunst.RestApi.Controllers;
 [ApiController]
 public class OrderController : ControllerBase
 {
-    private IOrderMvcDataAccess _orderMvcDao;
+    private IOrdersDataAccess _orderMvcDao;
 
-    public OrderController(IOrderMvcDataAccess orderMvcDao)
+    public OrderController(IOrdersDataAccess orderMvcDao)
     {
         _orderMvcDao = orderMvcDao;
     }

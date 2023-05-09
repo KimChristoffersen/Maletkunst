@@ -2,7 +2,7 @@
 
 namespace Maletkunst.DAL.Interfaces
 {
-    public interface IPaintingMvcDataAccess
+    public interface IPaintingsDataAccess
     {
         IEnumerable<Painting> GetAllAvailablePaintings();
         IEnumerable<Painting> GetAllPaintingsByFreeSearch(string searchString);

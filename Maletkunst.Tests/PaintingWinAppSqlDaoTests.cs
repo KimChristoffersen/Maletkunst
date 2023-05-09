@@ -10,7 +10,7 @@ namespace Maletkunst.Tests
     {
         #region Fields
         private string _developer;
-        private IPaintingWinAppDataAccess _paintingWinAppSqlDao;
+        private IPaintingsDao _paintingWinAppSqlDao;
         private List<int> paintingIds;
 
         // ConnectionString for the test database
@@ -28,7 +28,7 @@ namespace Maletkunst.Tests
             _developer = developerGuid + "Robert";
 
             // Access to database
-            _paintingWinAppSqlDao = new PaintingWinAppSqlDao(
+            _paintingWinAppSqlDao = new PaintingsSqlDao(
                // _connectionString            commented until implementation.
                 );
 

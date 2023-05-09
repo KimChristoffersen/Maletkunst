@@ -4,7 +4,7 @@ using System.Data.SqlClient;
 
 namespace Maletkunst.DAL.SQL;
 
-public class OrderMvcSqlDao : IOrderMvcDataAccess
+public class OrdersSqlDao : IOrdersDataAccess
 {
     private const string connectionString = @"Data Source=hildur.ucn.dk; Initial Catalog=DMA-CSD-V221_10434660; User ID=DMA-CSD-V221_10434660; Password=Password1!;";
 

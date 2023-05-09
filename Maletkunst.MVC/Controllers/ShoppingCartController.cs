@@ -8,9 +8,9 @@ namespace Maletkunst.MVC.Controllers
     public class ShoppingCartController : Controller
     {
 
-        private readonly IPaintingMvcDataAccess _client;
+        private readonly IPaintingsDataAccess _client;
 
-        public ShoppingCartController(IPaintingMvcDataAccess client)
+        public ShoppingCartController(IPaintingsDataAccess client)
         {
             _client = client;
         }

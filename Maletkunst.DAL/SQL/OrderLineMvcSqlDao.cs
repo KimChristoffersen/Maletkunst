@@ -8,7 +8,7 @@ public class OrderLineMvcSqlDao : IOrderLineMvcDataAccess
 {
     private const string connectionString = @"Data Source=hildur.ucn.dk; Initial Catalog=DMA-CSD-V221_10434660; User ID=DMA-CSD-V221_10434660; Password=Password1!;";
 
-    private IPaintingMvcDataAccess _paintingMvcDataAccess = new PaintingMvcSqlDao();
+    private IPaintingsDataAccess _paintingMvcDataAccess = new PaintingsSqlDataAccess();
 
 
     public IEnumerable<OrderLine> GetAllOrderLines()

@@ -6,7 +6,7 @@ namespace Maletkunst.RestApi.Test;
 public class Tests
 {
 
-    IPaintingMvcDataAccess _client = new PaintingMvcSqlDao();
+    IPaintingsDataAccess _client = new PaintingsSqlDataAccess();
 
     [SetUp]
     public void Setup()

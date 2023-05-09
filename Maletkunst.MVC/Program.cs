@@ -12,7 +12,7 @@ namespace Maletkunst.MVC
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
-            builder.Services.AddScoped<IPaintingMvcDataAccess, PaintingRestApiClient>();
+            builder.Services.AddScoped<IPaintingsDataAccess, PaintingsDataAccess>();
 
             var app = builder.Build();
 

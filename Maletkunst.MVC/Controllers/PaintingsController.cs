@@ -6,9 +6,9 @@ namespace Maletkunst.MVC.Controllers;
 
 public class PaintingsController : Controller
 {
-    IPaintingMvcDataAccess _client;
+    IPaintingsDataAccess _client;
 
-    public PaintingsController(IPaintingMvcDataAccess client)
+    public PaintingsController(IPaintingsDataAccess client)
     {
         _client = client;
     }

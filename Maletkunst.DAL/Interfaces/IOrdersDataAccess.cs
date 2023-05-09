@@ -1,8 +1,9 @@
-﻿using Maletkunst.DAL.Models;
+﻿
+using Maletkunst.DAL.Models;
 
 namespace Maletkunst.DAL.Interfaces;
 
-public interface IOrderMvcDataAccess
+public interface IOrdersDataAccess
 {
     IEnumerable<Order> GetAllOrders();
     int CreateOrder(Order order);

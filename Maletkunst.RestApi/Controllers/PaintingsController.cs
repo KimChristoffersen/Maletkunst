@@ -9,10 +9,10 @@ namespace Maletkunst.RestApi.Controllers;
 [ApiController]
 public class PaintingsController : ControllerBase
 {
-    private IPaintingMvcDataAccess _paintingMvcDao;
-    private IPaintingWinAppDataAccess _paintingWinAppDao;
+    private IPaintingsDataAccess _paintingMvcDao;
+    private IPaintingsDao _paintingWinAppDao;
 
-    public PaintingsController(IPaintingMvcDataAccess paintingMvcDao, IPaintingWinAppDataAccess paintingWinAppDao)
+    public PaintingsController(IPaintingsDataAccess paintingMvcDao, IPaintingsDao paintingWinAppDao)
     {
         _paintingMvcDao = paintingMvcDao;
         _paintingWinAppDao = paintingWinAppDao;
