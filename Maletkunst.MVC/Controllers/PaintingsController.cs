@@ -18,8 +18,6 @@ public class PaintingsController : Controller
         IEnumerable<Painting> paintings;
         if (!string.IsNullOrEmpty(searchString)) { paintings = _client.GetAllPaintingsByFreeSearch(searchString); }
         else { paintings = _client.GetAllAvailablePaintings(); }
-        
-        if (paintings == null) { return NotFound(); }
 
         return View(paintings);
     }
