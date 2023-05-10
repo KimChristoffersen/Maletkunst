@@ -6,11 +6,11 @@ namespace Maletkunst.RestApi.Controllers;
 
 [Route("v1/[controller]")]
 [ApiController]
-public class OrderController : ControllerBase
+public class OrdersController : ControllerBase
 {
     private IOrdersDataAccess _orderMvcDao;
 
-    public OrderController(IOrdersDataAccess orderMvcDao)
+    public OrdersController(IOrdersDataAccess orderMvcDao)
     {
         _orderMvcDao = orderMvcDao;
     }
