@@ -29,27 +29,33 @@ public class OrdersController : Controller
 
 		Order order = new Order();
 		order.OrderDate = DateTime.Now;
+		order.Status = "Status";
 		List<OrderLine> orderlines = new List<OrderLine>();
 
 		foreach (var item in cart.Items)
 		{
 			Painting painting = new Painting();
 			OrderLine orderline = new();
+			orderline.Quantity = item.Quantity;
+
 			painting.Title = item.Name;
 			painting.Price = item.Price;
 			painting.Id = item.Id;
 			painting.Stock = item.Quantity;
+			//painting.Artist = "fafaf";
+			//painting.Description = "fafafa";
+			//painting.Category = "Oliemaleri";
 			orderline.Painting = painting;
-			order.Total = cart.Total;
 
 			orderlines.Add(orderline);
 
 			//order.OrderLines.ToList().Add(orderline);
 		}
+		order.Total = cart.Total;
 		order.OrderLines = orderlines;
 		
 		int orderNumber = _client.CreateOrder(order);
-		
+		order.OrderNumber = orderNumber;
 
 		return order;
 	}
