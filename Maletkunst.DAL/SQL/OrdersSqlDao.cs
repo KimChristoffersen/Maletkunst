@@ -53,8 +53,8 @@ public class OrdersSqlDao : IOrdersDataAccess
         using SqlConnection connection = new SqlConnection(connectionString);
         connection.Open();
 
-        // STARTS TRANSACTION
-        SqlTransaction transaction = connection.BeginTransaction();
+        // STARTS TRANSACTION WITH ISOLATION LEVEL REPEATABLE READ (LOCKS TUPLE)
+        SqlTransaction transaction = connection.BeginTransaction(System.Data.IsolationLevel.RepeatableRead);
 
         // COMMANDS
         SqlCommand commandOrder = new SqlCommand(queryStringOrder, connection, transaction);
