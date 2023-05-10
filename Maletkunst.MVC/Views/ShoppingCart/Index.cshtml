@@ -48,7 +48,17 @@
     <form asp-controller="ShoppingCart" asp-action="EmptyCart" method="post" class="mr-3">
         <button type="submit" class="btn btn-outline-secondary emptycart-button">Tøm kurv</button>
     </form>
-    <form asp-controller="Payment" asp-action="Payout" method="post">
+   @* <form asp-controller="Orders" asp-action="Index" method="post">
+        <input type="hidden" name="ShoppingCart" value="model"/>
+        <button type="submit" class="btn btn-primary">Betal</button>
+    </form>*@
+    <form asp-controller="Orders" asp-action="Index" method="post">
+        <input type="hidden" name="ShoppingCart" value='@Json.Serialize(Model)' />
         <button type="submit" class="btn btn-primary">Betal</button>
     </form>
+
+
+
+
+
 </div>
