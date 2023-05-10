@@ -13,6 +13,7 @@ namespace Maletkunst.MVC
             builder.Services.AddControllersWithViews();
 
             builder.Services.AddScoped<IPaintingsDataAccess, PaintingsDataAccess>();
+            builder.Services.AddScoped<IOrdersDataAccess, OrdersDataAccess>();
 
             var app = builder.Build();
 
