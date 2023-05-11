@@ -19,6 +19,7 @@ public class OrdersController : Controller
 	public IActionResult Index(string shoppingCart)
 	{
 		Order order = CreateOrderWithShoppingCart(shoppingCart);
+		EmptyCart();
 
 		return View(order);
 	}
@@ -63,12 +64,12 @@ public class OrdersController : Controller
 
 
 	// GET: OrdersController/Create
-	public ActionResult Create(string shoppingCart)
-	{
-		Order order = CreateOrderWithShoppingCart(shoppingCart);
+	//public ActionResult Create(string shoppingCart)
+	//{
+	//	Order order = CreateOrderWithShoppingCart(shoppingCart);
 
-		return View(order);
-	}
+	//	return View(order);
+	//}
 
 	// POST: OrdersController/Create
 	[HttpPost]
@@ -78,6 +79,7 @@ public class OrdersController : Controller
 		try
 		{
 			int orderId = _client.CreateOrder(order);
+			EmptyCart();
 			return RedirectToAction(nameof(Index));
 		}
 		catch
@@ -85,6 +87,12 @@ public class OrdersController : Controller
 			return View();
 		}
 	}
+
+	private void EmptyCart()
+	{
+		Response.Cookies.Delete("ShoppingCart");
+	}
+
 }
 
 
