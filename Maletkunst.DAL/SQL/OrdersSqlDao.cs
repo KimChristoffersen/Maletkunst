@@ -35,16 +35,56 @@ public class OrdersSqlDao : IOrdersDataAccess
 				OrderDate = (DateTime)reader["OrderDate"],
 				Status = (string)reader["Status"],
 				Total = (decimal)reader["Total"],
-				OrderLines = GetAllOrderLinesByOrderNumber((int)reader["OrderNumber"])
+				OrdersCustomer = GetCustomerByCustomerId((int)reader["Customer_Id"]),
+				OrderLines = GetOrderLineByOrderNumber((int)reader["OrderNumber"])
 			});
 		}
 		return orders;
 	}
 
+	private Customer GetCustomerByCustomerId(int customerId)
+	{
+		string queryString = @"SELECT c.Customer_Id, p.fName AS FirstName, p.lName AS LastName, a.address AS Address, a.postalCode AS PostalCode,
+                           pc.city AS City, p.phone AS Phone, p.email AS Email, c.Discount
+                           FROM Customer c
+                           INNER JOIN Person p ON c.Customer_Id = p.PersonId
+                           INNER JOIN Address a ON p.PersonId = a.personId
+                           INNER JOIN PostalCode pc ON a.postalCode = pc.postalcode
+                           WHERE c.Customer_Id = @Customer_Id";
+
+		using SqlConnection connection = new SqlConnection(connectionString);
+		SqlCommand command = new SqlCommand(queryString, connection);
+		command.Parameters.AddWithValue("@Customer_Id", customerId);
+		connection.Open();
+		try
+		{
+			SqlDataReader reader = command.ExecuteReader();
+			if (reader.Read())
+			{
+				Customer customer = new Customer()
+				{
+					Id = (int)reader["Customer_Id"],
+					FirstName = (string)reader["FirstName"],
+					LastName = (string)reader["LastName"],
+					Address = (string)reader["Address"],
+					PostalCode = (int)reader["PostalCode"],
+					City = (string)reader["City"],
+					Phone = (string)reader["Phone"],
+					Email = (string)reader["Email"],
+					Discount = (int)reader["Discount"]
+				};
+				return customer;
+			}
+			else { throw new Exception($"Customer with ID '{customerId}' not found."); }
+		}
+		catch (Exception ex) { throw new Exception("ERROR occurred while getting the customer by customer ID", ex); }
+	}
+
+
 	public int CreateOrder(Order order)
 	{
 		// QUERIES DEFINITIONS FOR ORDER
-		string queryStringOrder = @"insert into [Order] (Status, Total) values(@Status, @Total); SELECT CAST(scope_identity() AS int)";
+		string queryStringOrder = @"insert into [Order] (Status, Total, Customer_Id) values(@Status, @Total, @Customer_Id); SELECT CAST(scope_identity() AS int)";
 		string queryStringOrderLine = @"insert into [OrderLine] values(@Quantity, @SubTotal, @OrderNumber, @Painting_Id)";
 		string queryStringCorrectPaintingsStock = @"UPDATE Painting SET Stock = @stock WHERE Id = @Painting_Id AND Stock > 0";
 
@@ -69,11 +109,6 @@ public class OrdersSqlDao : IOrdersDataAccess
 		SqlCommand commandPerson = new SqlCommand(queryStringPerson, connection, transaction);
 		SqlCommand commandCustomer = new SqlCommand(queryStringCustomer, connection, transaction);
 		SqlCommand commandAddress = new SqlCommand(queryStringAddress, connection, transaction);
-
-
-		// PARAMETERS FOR ORDER CREATION
-		commandOrder.Parameters.AddWithValue("@Status", order.Status);
-		commandOrder.Parameters.AddWithValue("@Total", order.Total);
 
 		// PARAMETERS FOR PERSON CREATION
 		commandPerson.Parameters.AddWithValue("@fName", order.OrdersCustomer.FirstName);
@@ -103,6 +138,10 @@ public class OrdersSqlDao : IOrdersDataAccess
 			commandAddress.ExecuteNonQuery();
 
 
+			// PARAMETERS FOR ORDER CREATION
+			commandOrder.Parameters.AddWithValue("@Status", order.Status);
+			commandOrder.Parameters.AddWithValue("@Total", order.Total);
+			commandOrder.Parameters.AddWithValue("@Customer_Id", NewGeneratedPersonId);
 
 			// EXECUTION OF ORDER CREATION WITH GENERATED IDENTITY KEY
 			int newGeneratedOrderNumber = (int)commandOrder.ExecuteScalar();
@@ -159,11 +198,7 @@ public class OrdersSqlDao : IOrdersDataAccess
 		}
 	}
 
-
-
-
-
-	public IEnumerable<OrderLine> GetAllOrderLinesByOrderNumber(int orderNumber)
+	public IEnumerable<OrderLine> GetOrderLineByOrderNumber(int orderNumber)
 	{
 		string queryString = @"SELECT * FROM OrderLine WHERE Order_Id = @OrderNumber";
 		using SqlConnection connection = new SqlConnection(connectionString);
@@ -194,5 +229,4 @@ public class OrdersSqlDao : IOrdersDataAccess
 		}
 		return orderLines;
 	}
-
 }

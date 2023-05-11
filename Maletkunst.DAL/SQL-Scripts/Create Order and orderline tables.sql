@@ -6,9 +6,9 @@ CREATE TABLE [Order](
 	OrderDate datetime NOT NULL DEFAULT GETDATE(),
 	Status nvarchar(20),
 	Total decimal(38,2),
-	--Customer_Id int,
+	Customer_Id int,
 	PRIMARY KEY(OrderNumber),
-	--FOREIGN KEY(Customer_Id) REFERENCES Customer(Id),
+	FOREIGN KEY(Customer_Id) REFERENCES Customer(Customer_Id),
 	)
 
 	CREATE TABLE OrderLine(
