@@ -25,32 +25,38 @@ namespace Maletkunst.MVC.Controllers
 
 
 
-        public IActionResult Add(int id)
-        {
-            cart = GetCartFromCookie(HttpContext);
+		public IActionResult Add(int id)
+		{
+			cart = GetCartFromCookie(HttpContext);
 
-            var painting = _client.GetPaintingById(id);
+			var painting = _client.GetPaintingById(id);
 
-            if (painting != null)
-            {
-                var shoppingCartItem = new ShoppingCartItem
-                {
-                    Id = painting.Id,
-                    Name = painting.Title,
-                    Price = painting.Price ?? 0,
-                    Quantity = 1
-                };
-                cart.Items.Add(shoppingCartItem);
-            }
+			if (painting != null)
+			{
+				var existingItem = cart.Items.Find(i => i.Id == painting.Id);
 
-            SaveCartToCookie(cart);
-            return RedirectToAction("Index", "Paintings");
-        }
+				if (existingItem == null)
+				{
+					var shoppingCartItem = new ShoppingCartItem
+					{
+						Id = painting.Id,
+						Name = painting.Title,
+						Price = painting.Price ?? 0,
+						Quantity = 1
+					};
+					cart.Items.Add(shoppingCartItem);
+				}
+			}
+
+			SaveCartToCookie(cart);
+			return RedirectToAction("Index", "Paintings");
+		}
 
 
 
 
-        private void SaveCartToCookie(ShoppingCart cart)
+
+		private void SaveCartToCookie(ShoppingCart cart)
         {
             var cookieOptions = new CookieOptions();
             cookieOptions.Expires = DateTime.Now.AddDays(7);
