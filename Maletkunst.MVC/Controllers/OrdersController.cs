@@ -43,14 +43,10 @@ public class OrdersController : Controller
 			painting.Price = item.Price;
 			painting.Id = item.Id;
 			painting.Stock = item.Quantity;
-			//painting.Artist = "fafaf";
-			//painting.Description = "fafafa";
-			//painting.Category = "Oliemaleri";
 			orderline.Painting = painting;
 
 			orderlines.Add(orderline);
 
-			//order.OrderLines.ToList().Add(orderline);
 		}
 		order.Total = cart.Total;
 		order.OrderLines = orderlines;
@@ -61,15 +57,6 @@ public class OrdersController : Controller
 		return order;
 	}
 
-
-
-	// GET: OrdersController/Create
-	//public ActionResult Create(string shoppingCart)
-	//{
-	//	Order order = CreateOrderWithShoppingCart(shoppingCart);
-
-	//	return View(order);
-	//}
 
 	// POST: OrdersController/Create
 	[HttpPost]
