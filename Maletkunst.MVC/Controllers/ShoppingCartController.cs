@@ -90,5 +90,12 @@ namespace Maletkunst.MVC.Controllers
         {
             return View("~/Views/ShoppingCart/Index.cshtml", GetCartFromCookie(HttpContext));
         }
-    }
+
+		public IActionResult CustomerInformation(string serializedShoppingCart)
+		{
+			ViewBag.SerializedShoppingCart = serializedShoppingCart;
+			return View();
+		}
+
+	}
 }
