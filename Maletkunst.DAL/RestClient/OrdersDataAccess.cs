@@ -21,14 +21,14 @@ public class OrdersDataAccess : IOrdersDataAccess
 	}
 	public int CreateOrder(Order order)
 	{
-		var request = new RestRequest("orders", Method.Post).AddJsonBody(order);
+		var request = new RestRequest("", Method.Post).AddJsonBody(order);
 		var response = client.Execute<int>(request);
 		return response.Data;
 	}
 
 	public IEnumerable<Order> GetAllOrders()
 	{
-		var request = new RestRequest("orders", Method.Get);
+		var request = new RestRequest("", Method.Get);
 		var response = client.Execute<List<Order>>(request);
 		return response.Data;
 	}
