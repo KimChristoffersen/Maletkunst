@@ -152,6 +152,10 @@ public class OrdersSqlDao : IOrdersDataAccess
 			// LOOP TO CREATE ORDERLINES
 			foreach (OrderLine orderLine in order.OrderLines)
 			{
+				// CLEAR PARAMETERS
+				commandOrderLine.Parameters.Clear();
+				commandCorrectPaintingsStock.Parameters.Clear();
+
 				// PARAMETERS FOR ORDERLINE CREATION
 				commandOrderLine.Parameters.AddWithValue("@Quantity", orderLine.Quantity);
 				commandOrderLine.Parameters.AddWithValue("@SubTotal", orderLine.SubTotal);
