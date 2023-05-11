@@ -15,7 +15,13 @@ public class CustomersSqlDao : ICustomersDao
 
 	public IEnumerable<Customer> GetAllCustomers()
 	{
-		string queryString = @"SELECT * FROM Customer";
+		string queryString = @"SELECT c.Customer_Id, p.fName AS FirstName, p.lName AS LastName, a.address AS Address, a.postalCode AS PostalCode,
+                           pc.city AS City, p.phone AS Phone, p.email AS Email, c.Discount
+                           FROM Customer c
+                           INNER JOIN Person p ON c.Customer_Id = p.PersonId
+                           INNER JOIN Address a ON p.PersonId = a.personId
+                           INNER JOIN PostalCode pc ON a.postalCode = pc.postalcode";
+		;
 		using SqlConnection connection = new SqlConnection(connectionString);
 		SqlCommand command = new SqlCommand(queryString, connection);
 
@@ -29,9 +35,17 @@ public class CustomersSqlDao : ICustomersDao
 	public int CreateCustomer(Customer customer)
 	{
 		// QUERIES DEFINITIONS
-		string queryStringPerson = @"INSERT INTO Person (fName, lName, phone, email, personType) VALUES (@fName, @lName, @phone, @email, @personType) SELECT CAST(scope_identity() AS int)";
-		string queryStringCustomer = @"INSERT INTO Customer (Customer_Id, Discount) VALUES (@customerId, @discount)";
-		string queryStringAddress = @"INSERT INTO Address (address, personId, postalCode) VALUES (@address, @personId, @postalCode)";
+		string queryStringPerson = @"INSERT INTO Person (fName, lName, phone, email, personType) 
+                                   VALUES (@fName, @lName, @phone, @email, @personType);
+                                   SELECT CAST(scope_identity() AS int)";
+
+		string queryStringCustomer = @"INSERT INTO Customer (Customer_Id, Discount) 
+                                     VALUES (@customerId, @discount)";
+
+		string queryStringAddress = @"INSERT INTO Address (address, personId, postalCode) 
+                                    VALUES (@address, @personId, @postalCode)";
+
+
 
 		// STARTS USING CONNECTION
 		using SqlConnection connection = new SqlConnection(connectionString);
@@ -112,7 +126,7 @@ public class CustomersSqlDao : ICustomersDao
 		{
 			customers.Add(new Customer()
 			{
-				Id = (int)reader["Id"],
+				Id = (int)reader["Customer_Id"],
 				FirstName = (string)reader["FirstName"],
 				LastName = (string)reader["LastName"],
 				Address = (string)reader["Address"],
