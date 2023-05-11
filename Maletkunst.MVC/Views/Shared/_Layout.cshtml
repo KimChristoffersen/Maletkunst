@@ -32,10 +32,10 @@
 							<a class="nav-link text-dark" asp-area="" asp-controller="Paintings" asp-action="Index">Alle malerier</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link text-dark" asp-area="" asp-controller="Paintings" asp-action="GetPaintingsByCategory" asp-route-category="Oliemaleri">Olie</a>
+							<a class="nav-link text-dark" asp-area="" asp-controller="Paintings" asp-action="Index" asp-route-category="Oliemaleri" asp-route-searchString="@ViewData["SearchString"]">Olie</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link text-dark" asp-area="" asp-controller="Paintings" asp-action="GetPaintingsByCategory" asp-route-category="Aquaral">Akvarel</a>
+							<a class="nav-link text-dark" asp-area="" asp-controller="Paintings" asp-action="Index" asp-route-category="Aquaral" asp-route-searchString="@ViewData["SearchString"]">Akvarel</a>
 						</li>
 
 						<li class="nav-item">
