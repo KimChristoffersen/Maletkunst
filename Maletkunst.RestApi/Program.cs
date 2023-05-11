@@ -19,11 +19,15 @@ public class Program
         builder.Services.AddScoped<IPaintingsDao, PaintingsSqlDao>();
         builder.Services.AddScoped<IPaintingsDataAccess, PaintingsSqlDataAccess>();
         builder.Services.AddScoped<IOrdersDataAccess, OrdersSqlDao>();
-        //builder.Services.AddScoped<IOrderLineMvcDataAccess, OrderLineMvcSqlDao>();
+
+		builder.Services.AddScoped<ICustomersDao, CustomersSqlDao>();
+
+
+		//builder.Services.AddScoped<IOrderLineMvcDataAccess, OrderLineMvcSqlDao>();
 
 
 
-        var app = builder.Build();
+		var app = builder.Build();
 
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())

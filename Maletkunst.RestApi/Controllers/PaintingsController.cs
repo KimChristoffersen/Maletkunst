@@ -4,7 +4,6 @@ using Maletkunst.DAL.Models;
 
 namespace Maletkunst.RestApi.Controllers;
 
-//Routing med eller uden api/{controller}? vi har jo en mappe (serversetup) kaldet api så vi ikke router til api/api/paintings
 [Route("v1/[controller]")]
 [ApiController]
 public class PaintingsController : ControllerBase
