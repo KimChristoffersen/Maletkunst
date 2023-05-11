@@ -1,6 +1,8 @@
 ﻿using Maletkunst.DAL.Interfaces;
 using Maletkunst.DAL.Models;
+
 using Maletkunst.DAL.RestClient;
+using Maletkunst.MVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -16,15 +18,26 @@ public class OrdersController : Controller
 	}
 
 
-	public IActionResult Index(string shoppingCart)
+	public ActionResult Index(CustomerInformationViewModel customerInfo)
 	{
-		Order order = CreateOrderWithShoppingCart(shoppingCart);
+		Customer customer = new Customer
+		{
+			FirstName = customerInfo.FirstName,
+			LastName = customerInfo.LastName,
+			Address = customerInfo.Address,
+			City = customerInfo.City,
+			PostalCode = customerInfo.PostalCode,
+			Email = customerInfo.Email,
+			Phone = customerInfo.Phone
+		};
+
+		Order order = CreateOrderWithShoppingCart(customerInfo.ShoppingCart, customer);
 		EmptyCart();
 
 		return View(order);
 	}
 
-	private Order CreateOrderWithShoppingCart(string shoppingCart)
+	private Order CreateOrderWithShoppingCart(string shoppingCart, Customer customer)
 	{
 		ShoppingCart cart = JsonConvert.DeserializeObject<ShoppingCart>(shoppingCart);
 
@@ -46,11 +59,11 @@ public class OrdersController : Controller
 			orderline.Painting = painting;
 
 			orderlines.Add(orderline);
-
 		}
+
 		order.Total = cart.Total;
 		order.OrderLines = orderlines;
-		
+		order.OrdersCustomer = customer; 
 		int orderNumber = _client.CreateOrder(order);
 		order.OrderNumber = orderNumber;
 
@@ -61,10 +74,11 @@ public class OrdersController : Controller
 	// POST: OrdersController/Create
 	[HttpPost]
 	[ValidateAntiForgeryToken]
-	public ActionResult Create(Order order)
+	public ActionResult Create(Order order, Customer customer)
 	{
 		try
 		{
+			order.OrdersCustomer = customer;
 			int orderId = _client.CreateOrder(order);
 			EmptyCart();
 			return RedirectToAction(nameof(Index));
