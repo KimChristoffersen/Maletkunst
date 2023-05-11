@@ -43,10 +43,15 @@ public class OrdersSqlDao : IOrdersDataAccess
 
 	public int CreateOrder(Order order)
 	{
-		// QUERIES DEFINITIONS
+		// QUERIES DEFINITIONS FOR ORDER
 		string queryStringOrder = @"insert into [Order] (Status, Total) values(@Status, @Total); SELECT CAST(scope_identity() AS int)";
 		string queryStringOrderLine = @"insert into [OrderLine] values(@Quantity, @SubTotal, @OrderNumber, @Painting_Id)";
 		string queryStringCorrectPaintingsStock = @"UPDATE Painting SET Stock = @stock WHERE Id = @Painting_Id AND Stock > 0";
+
+		// QUERIES DEFINITIONS FOR CUSTOMER
+		string queryStringPerson = @"INSERT INTO Person (fName, lName, phone, email, personType) VALUES (@fName, @lName, @phone, @email, @personType); SELECT CAST(scope_identity() AS int)";
+		string queryStringCustomer = @"INSERT INTO Customer (Customer_Id, Discount) VALUES (@customerId, @discount)";
+		string queryStringAddress = @"INSERT INTO Address (address, personId, postalCode) VALUES (@address, @personId, @postalCode)";
 
 		// STARTS USING CONNECTION
 		using SqlConnection connection = new SqlConnection(connectionString);
@@ -55,17 +60,50 @@ public class OrdersSqlDao : IOrdersDataAccess
 		// STARTS TRANSACTION WITH ISOLATION LEVEL REPEATABLE READ (LOCKS TUPLE)
 		SqlTransaction transaction = connection.BeginTransaction(System.Data.IsolationLevel.RepeatableRead);
 
-		// COMMANDS
+		// COMMANDS FOR ORDER CREATION
 		SqlCommand commandOrder = new SqlCommand(queryStringOrder, connection, transaction);
 		SqlCommand commandOrderLine = new SqlCommand(queryStringOrderLine, connection, transaction);
 		SqlCommand commandCorrectPaintingsStock = new SqlCommand(queryStringCorrectPaintingsStock, connection, transaction);
+
+		// COMMANDS FOR CUSTOMER CREATION
+		SqlCommand commandPerson = new SqlCommand(queryStringPerson, connection, transaction);
+		SqlCommand commandCustomer = new SqlCommand(queryStringCustomer, connection, transaction);
+		SqlCommand commandAddress = new SqlCommand(queryStringAddress, connection, transaction);
+
 
 		// PARAMETERS FOR ORDER CREATION
 		commandOrder.Parameters.AddWithValue("@Status", order.Status);
 		commandOrder.Parameters.AddWithValue("@Total", order.Total);
 
+		// PARAMETERS FOR PERSON CREATION
+		commandPerson.Parameters.AddWithValue("@fName", order.OrdersCustomer.FirstName);
+		commandPerson.Parameters.AddWithValue("@lName", order.OrdersCustomer.LastName);
+		commandPerson.Parameters.AddWithValue("@phone", order.OrdersCustomer.Phone);
+		commandPerson.Parameters.AddWithValue("@email", order.OrdersCustomer.Email);
+		commandPerson.Parameters.AddWithValue("@personType", "Customer");
+
 		try
 		{
+			// EXECUTION OF PERSON CREATION WITH GENERATED IDENTITY KEY
+			int NewGeneratedPersonId = (int)commandPerson.ExecuteScalar();
+
+			// PARAMETERS FOR CUSTOMER CREATION
+			commandCustomer.Parameters.AddWithValue("@customerId", NewGeneratedPersonId);
+			commandCustomer.Parameters.AddWithValue("@discount", 0);
+
+			// EXECUTION OF CUSTOMER CREATION
+			commandCustomer.ExecuteNonQuery();
+
+			// PARAMETERS FOR ADDRESS CREATION
+			commandAddress.Parameters.AddWithValue("@address", order.OrdersCustomer.Address);
+			commandAddress.Parameters.AddWithValue("@personId", NewGeneratedPersonId);
+			commandAddress.Parameters.AddWithValue("@postalCode", order.OrdersCustomer.PostalCode);
+
+			// EXECUTION OF ADDRESS CREATION
+			commandAddress.ExecuteNonQuery();
+
+
+
 			// EXECUTION OF ORDER CREATION WITH GENERATED IDENTITY KEY
 			int newGeneratedOrderNumber = (int)commandOrder.ExecuteScalar();
 

@@ -7,4 +7,5 @@ public class Order
     public string Status { get; set; }
     public decimal Total { get; set; }
     public IEnumerable<OrderLine> OrderLines { get; set; } = new List<OrderLine>();
+    public Customer OrdersCustomer { get; set; }
 }
