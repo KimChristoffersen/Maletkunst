@@ -13,8 +13,8 @@ public class OrdersSqlDao : IOrdersDataAccess
 	public IEnumerable<Order> GetAllOrders()
 	{
 		string queryString = @"SELECT * FROM [Order]";
-		using SqlConnection connection = new SqlConnection(connectionString);
-		SqlCommand command = new SqlCommand(queryString, connection);
+		using SqlConnection connection = new(connectionString);
+		SqlCommand command = new(queryString, connection);
 
 		connection.Open();
 
@@ -52,8 +52,8 @@ public class OrdersSqlDao : IOrdersDataAccess
                            INNER JOIN PostalCode pc ON a.postalCode = pc.postalcode
                            WHERE c.Customer_Id = @Customer_Id";
 
-		using SqlConnection connection = new SqlConnection(connectionString);
-		SqlCommand command = new SqlCommand(queryString, connection);
+		using SqlConnection connection = new(connectionString);
+		SqlCommand command = new(queryString, connection);
 		command.Parameters.AddWithValue("@Customer_Id", customerId);
 		connection.Open();
 		try
@@ -61,7 +61,7 @@ public class OrdersSqlDao : IOrdersDataAccess
 			SqlDataReader reader = command.ExecuteReader();
 			if (reader.Read())
 			{
-				Customer customer = new Customer()
+				Customer customer = new()
 				{
 					Id = (int)reader["Customer_Id"],
 					FirstName = (string)reader["FirstName"],
@@ -94,21 +94,21 @@ public class OrdersSqlDao : IOrdersDataAccess
 		string queryStringAddress = @"INSERT INTO Address (address, personId, postalCode) VALUES (@address, @personId, @postalCode)";
 
 		// STARTS USING CONNECTION
-		using SqlConnection connection = new SqlConnection(connectionString);
+		using SqlConnection connection = new(connectionString);
 		connection.Open();
 
 		// STARTS TRANSACTION WITH ISOLATION LEVEL REPEATABLE READ (LOCKS TUPLE)
 		SqlTransaction transaction = connection.BeginTransaction(System.Data.IsolationLevel.RepeatableRead);
 
 		// COMMANDS FOR ORDER CREATION
-		SqlCommand commandOrder = new SqlCommand(queryStringOrder, connection, transaction);
-		SqlCommand commandOrderLine = new SqlCommand(queryStringOrderLine, connection, transaction);
-		SqlCommand commandCorrectPaintingsStock = new SqlCommand(queryStringCorrectPaintingsStock, connection, transaction);
+		SqlCommand commandOrder = new(queryStringOrder, connection, transaction);
+		SqlCommand commandOrderLine = new(queryStringOrderLine, connection, transaction);
+		SqlCommand commandCorrectPaintingsStock = new(queryStringCorrectPaintingsStock, connection, transaction);
 
 		// COMMANDS FOR CUSTOMER CREATION
-		SqlCommand commandPerson = new SqlCommand(queryStringPerson, connection, transaction);
-		SqlCommand commandCustomer = new SqlCommand(queryStringCustomer, connection, transaction);
-		SqlCommand commandAddress = new SqlCommand(queryStringAddress, connection, transaction);
+		SqlCommand commandPerson = new(queryStringPerson, connection, transaction);
+		SqlCommand commandCustomer = new(queryStringCustomer, connection, transaction);
+		SqlCommand commandAddress = new(queryStringAddress, connection, transaction);
 
 		// PARAMETERS FOR PERSON CREATION
 		commandPerson.Parameters.AddWithValue("@fName", order.OrdersCustomer.FirstName);
@@ -205,8 +205,8 @@ public class OrdersSqlDao : IOrdersDataAccess
 	public IEnumerable<OrderLine> GetOrderLineByOrderNumber(int orderNumber)
 	{
 		string queryString = @"SELECT * FROM OrderLine WHERE Order_Id = @OrderNumber";
-		using SqlConnection connection = new SqlConnection(connectionString);
-		SqlCommand command = new SqlCommand(queryString, connection);
+		using SqlConnection connection = new(connectionString);
+		SqlCommand command = new(queryString, connection);
 		command.Parameters.AddWithValue("@OrderNumber", orderNumber);
 
 		connection.Open();
