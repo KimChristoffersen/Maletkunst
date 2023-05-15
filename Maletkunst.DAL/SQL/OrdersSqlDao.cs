@@ -6,7 +6,15 @@ namespace Maletkunst.DAL.SQL;
 
 public class OrdersSqlDao : IOrdersDataAccess
 {
-	private const string connectionString = @"Data Source=hildur.ucn.dk; Initial Catalog=DMA-CSD-V221_10434660; User ID=DMA-CSD-V221_10434660; Password=Password1!;";
+    private const string connectionString = @"Data Source=hildur.ucn.dk; Initial Catalog=DMA-CSD-V221_10434660; User ID=DMA-CSD-V221_10434660; Password=Password1!;";
+    
+	private const string queryString_InsertOrder = @"insert into [Order] (Status, Total, Customer_Id) values(@Status, @Total, @Customer_Id); SELECT CAST(scope_identity() AS int)";
+    private const string queryString_InsertOrderLine = @"insert into [OrderLine] values(@Quantity, @SubTotal, @OrderNumber, @Painting_Id)";
+    private	const string queryString_UpdateCorrectPaintingsStock = @"UPDATE Painting SET Stock = @stock WHERE Id = @Painting_Id AND Stock > 0";
+
+    private const string queryStringPerson = @"INSERT INTO Person (fName, lName, phone, email, personType) VALUES (@fName, @lName, @phone, @email, @personType); SELECT CAST(scope_identity() AS int)";
+    private const string queryStringCustomer = @"INSERT INTO Customer (Customer_Id, Discount) VALUES (@customerId, @discount)";
+    private const string queryStringAddress = @"INSERT INTO Address (address, personId, postalCode) VALUES (@address, @personId, @postalCode)";
 
 	private IPaintingsDataAccess _paintingSqlDataAccess = new PaintingsSqlDataAccess();
 
@@ -84,26 +92,28 @@ public class OrdersSqlDao : IOrdersDataAccess
 	public int CreateOrder(Order order)
 	{
 		// QUERIES DEFINITIONS FOR ORDER
-		string queryStringOrder = @"insert into [Order] (Status, Total, Customer_Id) values(@Status, @Total, @Customer_Id); SELECT CAST(scope_identity() AS int)";
-		string queryStringOrderLine = @"insert into [OrderLine] values(@Quantity, @SubTotal, @OrderNumber, @Painting_Id)";
-		string queryStringCorrectPaintingsStock = @"UPDATE Painting SET Stock = @stock WHERE Id = @Painting_Id AND Stock > 0";
+		//string queryStringOrder = @"insert into [Order] (Status, Total, Customer_Id) values(@Status, @Total, @Customer_Id); SELECT CAST(scope_identity() AS int)";
+		//string queryStringOrderLine = @"insert into [OrderLine] values(@Quantity, @SubTotal, @OrderNumber, @Painting_Id)";
+		//string queryStringCorrectPaintingsStock = @"UPDATE Painting SET Stock = @stock WHERE Id = @Painting_Id AND Stock > 0";
 
 		// QUERIES DEFINITIONS FOR CUSTOMER
-		string queryStringPerson = @"INSERT INTO Person (fName, lName, phone, email, personType) VALUES (@fName, @lName, @phone, @email, @personType); SELECT CAST(scope_identity() AS int)";
-		string queryStringCustomer = @"INSERT INTO Customer (Customer_Id, Discount) VALUES (@customerId, @discount)";
-		string queryStringAddress = @"INSERT INTO Address (address, personId, postalCode) VALUES (@address, @personId, @postalCode)";
+		//string queryStringPerson = @"INSERT INTO Person (fName, lName, phone, email, personType) VALUES (@fName, @lName, @phone, @email, @personType); SELECT CAST(scope_identity() AS int)";
+		//string queryStringCustomer = @"INSERT INTO Customer (Customer_Id, Discount) VALUES (@customerId, @discount)";
+		//string queryStringAddress = @"INSERT INTO Address (address, personId, postalCode) VALUES (@address, @personId, @postalCode)";
 
-		// STARTS USING CONNECTION
+		//// STARTS USING CONNECTION
 		using SqlConnection connection = new(connectionString);
 		connection.Open();
 
-		// STARTS TRANSACTION WITH ISOLATION LEVEL REPEATABLE READ (LOCKS TUPLE)
-		SqlTransaction transaction = connection.BeginTransaction(System.Data.IsolationLevel.RepeatableRead);
+        // STARTS TRANSACTION WITH ISOLATION LEVEL REPEATABLE READ (LOCKS TUPLE)
+        SqlTransaction transaction = connection.BeginTransaction(System.Data.IsolationLevel.ReadUncommitted);
+        //SqlTransaction transaction = connection.BeginTransaction(System.Data.IsolationLevel.RepeatableRead);
 
-		// COMMANDS FOR ORDER CREATION
-		SqlCommand commandOrder = new(queryStringOrder, connection, transaction);
-		SqlCommand commandOrderLine = new(queryStringOrderLine, connection, transaction);
-		SqlCommand commandCorrectPaintingsStock = new(queryStringCorrectPaintingsStock, connection, transaction);
+
+        // COMMANDS FOR ORDER CREATION
+        SqlCommand commandOrder = new(queryString_InsertOrder, connection, transaction);
+		SqlCommand commandOrderLine = new(queryString_InsertOrderLine, connection, transaction);
+		SqlCommand commandCorrectPaintingsStock = new(queryString_UpdateCorrectPaintingsStock, connection, transaction);
 
 		// COMMANDS FOR CUSTOMER CREATION
 		SqlCommand commandPerson = new(queryStringPerson, connection, transaction);
@@ -152,8 +162,10 @@ public class OrdersSqlDao : IOrdersDataAccess
 			// LOOP TO CREATE ORDERLINES
 			foreach (OrderLine orderLine in order.OrderLines)
 			{
-				// CLEAR PARAMETERS
-				commandOrderLine.Parameters.Clear();
+                Thread.Sleep(3000);
+
+                // CLEAR PARAMETERS
+                commandOrderLine.Parameters.Clear();
 				commandCorrectPaintingsStock.Parameters.Clear();
 
 				// PARAMETERS FOR ORDERLINE CREATION
