@@ -10,6 +10,8 @@ namespace Maletkunst.DAL.Interfaces
         //IEnumerable<Painting> GetAllPaintingsByCategoryAndFreeSearch(string category, string searchString); Not yet implemented in mvc
         Painting GetPaintingById(int id);
 
+        IEnumerable<Painting> GetAllPaintingsByFreeSearch(string searchString, string category);
 
-    }
+
+	}
 }

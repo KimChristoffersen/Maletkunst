@@ -13,32 +13,40 @@ public class PaintingsController : Controller
 		_client = client;
 	}
 	// GET: PaintingsController
+	//public IActionResult Index(string category, string searchString)
+	//{
+	//	IEnumerable<Painting> paintings;
+
+	//	if (!string.IsNullOrEmpty(searchString))
+	//	{
+	//		if (!string.IsNullOrEmpty(category))
+	//		{
+	//			paintings = _client.GetAllPaintingsByFreeSearch(searchString).Where(p => p.Category == category);
+	//		}
+	//		else
+	//		{
+	//			paintings = _client.GetAllPaintingsByFreeSearch(searchString);
+	//		}
+	//	}
+	//	else if (!string.IsNullOrEmpty(category))
+	//	{
+	//		paintings = _client.GetAllPaintingsByCategory(category);
+	//	}
+	//	else
+	//	{
+	//		paintings = _client.GetAllAvailablePaintings();
+	//	}
+
+	//	ViewData["Category"] = category;
+	//	ViewData["SearchString"] = searchString;
+	//	return View(paintings);
+	//}
+
 	public IActionResult Index(string category, string searchString)
 	{
-		IEnumerable<Painting> paintings;
-
-		if (!string.IsNullOrEmpty(searchString))
-		{
-			if (!string.IsNullOrEmpty(category))
-			{
-				paintings = _client.GetAllPaintingsByFreeSearch(searchString).Where(p => p.Category == category);
-			}
-			else
-			{
-				paintings = _client.GetAllPaintingsByFreeSearch(searchString);
-			}
-		}
-		else if (!string.IsNullOrEmpty(category))
-		{
-			paintings = _client.GetAllPaintingsByCategory(category);
-		}
-		else
-		{
-			paintings = _client.GetAllAvailablePaintings();
-		}
-
-		ViewData["Category"] = category;
-		ViewData["SearchString"] = searchString;
+		var paintings = _client.GetAllPaintingsByFreeSearch(searchString, category);
+		ViewData["Category"] = category ?? string.Empty;
+		ViewData["SearchString"] = searchString ?? string.Empty;
 		return View(paintings);
 	}
 
