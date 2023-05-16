@@ -12,7 +12,7 @@ public class OrdersSqlDao : IOrdersDataAccess
 	private const string queryString_InsertOrder = @"insert into [Order] (Status, Total, Customer_Id) values(@Status, @Total, @Customer_Id); SELECT CAST(scope_identity() AS int)";
 	private const string queryString_InsertOrderLine = @"insert into [OrderLine] values(@Quantity, @SubTotal, @OrderNumber, @Painting_Id)";
 	private const string queryString_SelectPaintingsWithStock = @"SELECT * FROM Painting WHERE Id = @Painting_Id AND Stock > 0";
-	private const string queryString_UpdatePaintingsStock = @"UPDATE Painting SET Stock = @stock WHERE Id = @Painting_Id";
+	private const string queryString_UpdatePaintingsStock = @"UPDATE Painting SET Stock = Stock - 1 WHERE Id = @Painting_Id";
 
 	private const string queryStringPerson = @"INSERT INTO Person (fName, lName, phone, email, personType) VALUES (@fName, @lName, @phone, @email, @personType); SELECT CAST(scope_identity() AS int)";
 	private const string queryStringCustomer = @"INSERT INTO Customer (Customer_Id, Discount) VALUES (@customerId, @discount)";
@@ -89,7 +89,6 @@ public class OrdersSqlDao : IOrdersDataAccess
 		}
 		catch (Exception ex) { throw new Exception("ERROR occurred while getting the customer by customer ID", ex); }
 	}
-
 
 	public int CreateOrder(Order order)
 	{
@@ -195,7 +194,6 @@ public class OrdersSqlDao : IOrdersDataAccess
 				commandOrderLine.ExecuteNonQuery();
 
 				// PARAMETERS FOR PAINTING STOCK ADJUSTMENT
-				commandUpdatePaintingsStock.Parameters.AddWithValue("@Stock", 0);
 				commandUpdatePaintingsStock.Parameters.AddWithValue("@Painting_Id", orderLine.Painting.Id);
 
 				// EXECUTION OF PAINTING STOCK ADJUSTMENT
