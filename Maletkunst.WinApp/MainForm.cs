@@ -7,7 +7,7 @@ namespace MaletKunst.WinApp;
 
 public partial class MainForm : Form
 {
-    IPaintingsDao _client = new PaintingsDao();
+    IPaintingsDao _client = new PaintingsRestClientDao();
     public MainForm() => InitializeComponent();
 
     private void MainForm_Load(object sender, EventArgs e) => LoadData();

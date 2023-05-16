@@ -4,12 +4,12 @@ using RestSharp;
 
 namespace Maletkunst.DAL.RestClient;
 
-public class PaintingsDao : IPaintingsDao
+public class PaintingsRestClientDao : IPaintingsDao
 {
 
 	private readonly string restUrl;
 	public readonly RestSharp.RestClient client;
-    public PaintingsDao()
+    public PaintingsRestClientDao()
     {
 		restUrl = "https://www.maletkunst.dk/api/v1/Paintings";
 		//restUrl = "https://localhost:7150/v1/Paintings";
