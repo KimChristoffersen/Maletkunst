@@ -1,7 +1,6 @@
 ﻿using Maletkunst.DAL.Interfaces;
 using Maletkunst.DAL.Models;
 using System.Data.SqlClient;
-using System.Threading.Channels;
 
 namespace Maletkunst.DAL.SQL;
 
@@ -14,17 +13,17 @@ public class OrdersSqlDao : IOrdersDataAccess
 	private const string queryString_SelectPaintingsWithStock = @"SELECT * FROM Painting WHERE Id = @Painting_Id AND Stock > 0";
 	private const string queryString_UpdatePaintingsStock = @"UPDATE Painting SET Stock = Stock - 1 WHERE Id = @Painting_Id";
 
-	private const string queryStringPerson = @"INSERT INTO Person (fName, lName, phone, email, personType) VALUES (@fName, @lName, @phone, @email, @personType); SELECT CAST(scope_identity() AS int)";
-	private const string queryStringCustomer = @"INSERT INTO Customer (Customer_Id, Discount) VALUES (@customerId, @discount)";
-	private const string queryStringAddress = @"INSERT INTO Address (address, personId, postalCode) VALUES (@address, @personId, @postalCode)";
+	private const string queryString_InsertPerson = @"INSERT INTO Person (fName, lName, phone, email, personType) VALUES (@fName, @lName, @phone, @email, @personType); SELECT CAST(scope_identity() AS int)";
+	private const string queryString_InsertCustomer = @"INSERT INTO Customer (Customer_Id, Discount) VALUES (@customerId, @discount)";
+	private const string queryString_InsertAddress = @"INSERT INTO Address (address, personId, postalCode) VALUES (@address, @personId, @postalCode)";
 
 	private IPaintingsDataAccess _paintingSqlDataAccess;
 
-    public OrdersSqlDao(IPaintingsDataAccess paintingSqlDataAccess)
-    {
-        _paintingSqlDataAccess = paintingSqlDataAccess;
-    }
-    public IEnumerable<Order> GetAllOrders()
+	public OrdersSqlDao(IPaintingsDataAccess paintingSqlDataAccess)
+	{
+		_paintingSqlDataAccess = paintingSqlDataAccess;
+	}
+	public IEnumerable<Order> GetAllOrders()
 	{
 		string queryString = @"SELECT * FROM [Order]";
 		using SqlConnection connection = new(connectionString);
@@ -103,121 +102,128 @@ public class OrdersSqlDao : IOrdersDataAccess
 		//string queryString_UpdatePaintingsStock = @"UPDATE Painting SET Stock = Stock - 1 WHERE Id = @Painting_Id";
 
 		// QUERIES DEFINITIONS FOR CUSTOMER
-		//string queryStringPerson = @"INSERT INTO Person (fName, lName, phone, email, personType) VALUES (@fName, @lName, @phone, @email, @personType); SELECT CAST(scope_identity() AS int)";
-		//string queryStringCustomer = @"INSERT INTO Customer (Customer_Id, Discount) VALUES (@customerId, @discount)";
-		//string queryStringAddress = @"INSERT INTO Address (address, personId, postalCode) VALUES (@address, @personId, @postalCode)";
-
-		//// STARTS USING CONNECTION
-		using SqlConnection connection = new(connectionString);
-		connection.Open();
-
-		// STARTS TRANSACTION WITH ISOLATION LEVEL REPEATABLE READ (LOCKS TUPLE)
-		SqlTransaction transaction = connection.BeginTransaction(System.Data.IsolationLevel.RepeatableRead);
-
-		// COMMANDS FOR ORDER CREATION
-		SqlCommand commandOrder = new(queryString_InsertOrder, connection, transaction);
-		SqlCommand commandOrderLine = new(queryString_InsertOrderLine, connection, transaction);
-		SqlCommand commandSelectPaintingStock = new(queryString_SelectPaintingsWithStock, connection, transaction);
-		SqlCommand commandUpdatePaintingsStock = new(queryString_UpdatePaintingsStock, connection, transaction);
-
-		// COMMANDS FOR CUSTOMER CREATION
-		SqlCommand commandPerson = new(queryStringPerson, connection, transaction);
-		SqlCommand commandCustomer = new(queryStringCustomer, connection, transaction);
-		SqlCommand commandAddress = new(queryStringAddress, connection, transaction);
-
-		// PARAMETERS FOR PERSON CREATION
-		commandPerson.Parameters.AddWithValue("@fName", order.OrdersCustomer.FirstName);
-		commandPerson.Parameters.AddWithValue("@lName", order.OrdersCustomer.LastName);
-		commandPerson.Parameters.AddWithValue("@phone", order.OrdersCustomer.Phone);
-		commandPerson.Parameters.AddWithValue("@email", order.OrdersCustomer.Email);
-		commandPerson.Parameters.AddWithValue("@personType", "Customer");
+		//string queryString_InsertPerson = @"INSERT INTO Person (fName, lName, phone, email, personType) VALUES (@fName, @lName, @phone, @email, @personType); SELECT CAST(scope_identity() AS int)";
+		//string queryString_InsertCustomer = @"INSERT INTO Customer (Customer_Id, Discount) VALUES (@customerId, @discount)";
+		//string queryString_InsertAddress = @"INSERT INTO Address (address, personId, postalCode) VALUES (@address, @personId, @postalCode)";
 
 		try
 		{
-			// DELAY INSERTED FOR TESTING CONCURENCY
-			Thread.Sleep(3000);
+			//// STARTS USING CONNECTION
+			using SqlConnection connection = new(connectionString);
+			connection.Open();
 
-			// LOOP FOR CHECKING STOCK OF ORDERS PAINTINGS
-			foreach (OrderLine orderLine in order.OrderLines)
+			// STARTS TRANSACTION WITH ISOLATION LEVEL REPEATABLE READ (LOCKS TUPLE)
+			SqlTransaction transaction = connection.BeginTransaction(System.Data.IsolationLevel.RepeatableRead);
+
+			// COMMANDS FOR ORDER CREATION
+			SqlCommand commandOrder = new(queryString_InsertOrder, connection, transaction);
+			SqlCommand commandOrderLine = new(queryString_InsertOrderLine, connection, transaction);
+			SqlCommand commandSelectPaintingStock = new(queryString_SelectPaintingsWithStock, connection, transaction);
+			SqlCommand commandUpdatePaintingsStock = new(queryString_UpdatePaintingsStock, connection, transaction);
+
+			// COMMANDS FOR CUSTOMER CREATION
+			SqlCommand commandPerson = new(queryString_InsertPerson, connection, transaction);
+			SqlCommand commandCustomer = new(queryString_InsertCustomer, connection, transaction);
+			SqlCommand commandAddress = new(queryString_InsertAddress, connection, transaction);
+
+			// PARAMETERS FOR PERSON CREATION
+			commandPerson.Parameters.AddWithValue("@fName", order.OrdersCustomer.FirstName);
+			commandPerson.Parameters.AddWithValue("@lName", order.OrdersCustomer.LastName);
+			commandPerson.Parameters.AddWithValue("@phone", order.OrdersCustomer.Phone);
+			commandPerson.Parameters.AddWithValue("@email", order.OrdersCustomer.Email);
+			commandPerson.Parameters.AddWithValue("@personType", "Customer");
+
+			try
 			{
-				// CLEAR PARAMETERS
-				commandSelectPaintingStock.Parameters.Clear();
+				// DELAY INSERTED FOR TESTING CONCURENCY
+				Thread.Sleep(3000);
 
-				// PARAMETERS FOR PAINTING STOCK CHECK
-				commandSelectPaintingStock.Parameters.AddWithValue("@Painting_Id", orderLine.Painting.Id);
-
-				// READ TUPLES RETURNED - IF NO TUPLES RETURNED RETURN 0 TO INDICATE THAT ORDER HAS NOT BEEN CREATED
-				using SqlDataReader reader = commandSelectPaintingStock.ExecuteReader();
-				if (!reader.Read())
+				// LOOP FOR CHECKING STOCK OF ORDERS PAINTINGS
+				foreach (OrderLine orderLine in order.OrderLines)
 				{
-					return 0;
+					// CLEAR PARAMETERS
+					commandSelectPaintingStock.Parameters.Clear();
+
+					// PARAMETERS FOR PAINTING STOCK CHECK
+					commandSelectPaintingStock.Parameters.AddWithValue("@Painting_Id", orderLine.Painting.Id);
+
+					// READ TUPLES RETURNED - IF NO TUPLES RETURNED RETURN 0 TO INDICATE THAT ORDER HAS NOT BEEN CREATED
+					using SqlDataReader reader = commandSelectPaintingStock.ExecuteReader();
+					if (!reader.Read())
+					{
+						return 0;
+					}
 				}
+
+				// EXECUTION OF PERSON CREATION WITH GENERATED IDENTITY KEY
+				int NewGeneratedPersonId = (int)commandPerson.ExecuteScalar();
+
+				// PARAMETERS FOR CUSTOMER CREATION
+				commandCustomer.Parameters.AddWithValue("@customerId", NewGeneratedPersonId);
+				commandCustomer.Parameters.AddWithValue("@discount", 0);
+
+				// EXECUTION OF CUSTOMER CREATION
+				commandCustomer.ExecuteNonQuery();
+
+				// PARAMETERS FOR ADDRESS CREATION
+				commandAddress.Parameters.AddWithValue("@address", order.OrdersCustomer.Address);
+				commandAddress.Parameters.AddWithValue("@personId", NewGeneratedPersonId);
+				commandAddress.Parameters.AddWithValue("@postalCode", order.OrdersCustomer.PostalCode);
+
+				// EXECUTION OF ADDRESS CREATION
+				commandAddress.ExecuteNonQuery();
+
+
+				// PARAMETERS FOR ORDER CREATION
+				commandOrder.Parameters.AddWithValue("@Status", order.Status);
+				commandOrder.Parameters.AddWithValue("@Total", order.Total);
+				commandOrder.Parameters.AddWithValue("@Customer_Id", NewGeneratedPersonId);
+
+				// EXECUTION OF ORDER CREATION WITH GENERATED IDENTITY KEY
+				int newGeneratedOrderNumber = (int)commandOrder.ExecuteScalar();
+
+
+				// LOOP TO CREATE ORDERLINES
+				foreach (OrderLine orderLine in order.OrderLines)
+				{
+					// CLEAR PARAMETERS
+					commandOrderLine.Parameters.Clear();
+					commandUpdatePaintingsStock.Parameters.Clear();
+
+					// PARAMETERS FOR ORDERLINE CREATION
+					commandOrderLine.Parameters.AddWithValue("@Quantity", orderLine.Quantity);
+					commandOrderLine.Parameters.AddWithValue("@SubTotal", orderLine.SubTotal);
+					commandOrderLine.Parameters.AddWithValue("@OrderNumber", newGeneratedOrderNumber);
+					commandOrderLine.Parameters.AddWithValue("@Painting_Id", orderLine.Painting.Id);
+
+					// EXECUTION OF ORDERLINE CREATION
+					commandOrderLine.ExecuteNonQuery();
+
+					// PARAMETERS FOR PAINTING STOCK ADJUSTMENT
+					commandUpdatePaintingsStock.Parameters.AddWithValue("@Painting_Id", orderLine.Painting.Id);
+
+					// EXECUTION OF PAINTING STOCK ADJUSTMENT
+					commandUpdatePaintingsStock.ExecuteNonQuery();
+				}
+
+				// SAVE THE CHANGES IN THE DATABASE
+				transaction.Commit();
+
+				// RETURNS THE NEW GENERATED ORDER NUMBER
+				return newGeneratedOrderNumber;
 			}
 
-			// EXECUTION OF PERSON CREATION WITH GENERATED IDENTITY KEY
-			int NewGeneratedPersonId = (int)commandPerson.ExecuteScalar();
-
-			// PARAMETERS FOR CUSTOMER CREATION
-			commandCustomer.Parameters.AddWithValue("@customerId", NewGeneratedPersonId);
-			commandCustomer.Parameters.AddWithValue("@discount", 0);
-
-			// EXECUTION OF CUSTOMER CREATION
-			commandCustomer.ExecuteNonQuery();
-
-			// PARAMETERS FOR ADDRESS CREATION
-			commandAddress.Parameters.AddWithValue("@address", order.OrdersCustomer.Address);
-			commandAddress.Parameters.AddWithValue("@personId", NewGeneratedPersonId);
-			commandAddress.Parameters.AddWithValue("@postalCode", order.OrdersCustomer.PostalCode);
-
-			// EXECUTION OF ADDRESS CREATION
-			commandAddress.ExecuteNonQuery();
-
-
-			// PARAMETERS FOR ORDER CREATION
-			commandOrder.Parameters.AddWithValue("@Status", order.Status);
-			commandOrder.Parameters.AddWithValue("@Total", order.Total);
-			commandOrder.Parameters.AddWithValue("@Customer_Id", NewGeneratedPersonId);
-
-			// EXECUTION OF ORDER CREATION WITH GENERATED IDENTITY KEY
-			int newGeneratedOrderNumber = (int)commandOrder.ExecuteScalar();
-
-
-			// LOOP TO CREATE ORDERLINES
-			foreach (OrderLine orderLine in order.OrderLines)
+			// EXCEPTION HANDLING AND ROLL BACK
+			catch (Exception e)
 			{
-				// CLEAR PARAMETERS
-				commandOrderLine.Parameters.Clear();
-				commandUpdatePaintingsStock.Parameters.Clear();
-
-				// PARAMETERS FOR ORDERLINE CREATION
-				commandOrderLine.Parameters.AddWithValue("@Quantity", orderLine.Quantity);
-				commandOrderLine.Parameters.AddWithValue("@SubTotal", orderLine.SubTotal);
-				commandOrderLine.Parameters.AddWithValue("@OrderNumber", newGeneratedOrderNumber);
-				commandOrderLine.Parameters.AddWithValue("@Painting_Id", orderLine.Painting.Id);
-
-				// EXECUTION OF ORDERLINE CREATION
-				commandOrderLine.ExecuteNonQuery();
-
-				// PARAMETERS FOR PAINTING STOCK ADJUSTMENT
-				commandUpdatePaintingsStock.Parameters.AddWithValue("@Painting_Id", orderLine.Painting.Id);
-
-				// EXECUTION OF PAINTING STOCK ADJUSTMENT
-				commandUpdatePaintingsStock.ExecuteNonQuery();
+				try { transaction.Rollback(); }
+				catch (Exception exx) { throw new Exception("ERROR occurred while rolling back", exx); }
+				throw new Exception("ERROR occurred while creating an order", e);
 			}
-
-			// SAVE THE CHANGES IN THE DATABASE
-			transaction.Commit();
-
-			// RETURNS THE NEW GENERATED ORDER NUMBER
-			return newGeneratedOrderNumber;
 		}
-
-		// EXCEPTION HANDLING AND ROLL BACK
-		catch (Exception e)
+		catch (Exception exxx)
 		{
-			try { transaction.Rollback(); }
-			catch (Exception exx) { throw new Exception("ERROR occurred while rolling back", exx); }
-			throw new Exception("ERROR occurred while creating an order", e);
+			throw new Exception("Error opening connection to database", exxx);
 		}
 	}
 
