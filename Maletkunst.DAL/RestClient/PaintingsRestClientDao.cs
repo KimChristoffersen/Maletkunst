@@ -21,14 +21,16 @@ public class PaintingsRestClientDao : IPaintingsDao
 	}
 
 
-	public IEnumerable<Painting> GetAllPaintings()
-    {
-        var request = new RestRequest("/all", Method.Get);
-        var response = client.Execute<List<Painting>>(request);
-        return response.Data;
-    }
 
-    public int CreatePainting(Painting painting)
+
+	public async Task<IEnumerable<Painting>> GetAllPaintingsAsync()
+	{
+		var request = new RestRequest("/all", Method.Get);
+		var response = await client.ExecuteAsync<List<Painting>>(request);
+		return response.Data;
+	}
+
+	public int CreatePainting(Painting painting)
     {
         var request = new RestRequest("", Method.Post).AddJsonBody(painting);
         var response = client.Execute<int>(request);
