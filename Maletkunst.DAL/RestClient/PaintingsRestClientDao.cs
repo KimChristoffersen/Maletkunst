@@ -20,7 +20,8 @@ public class PaintingsRestClientDao : IPaintingsDao
 		client = new RestSharp.RestClient(restUrl);
 	}
 
-    public IEnumerable<Painting> GetAllPaintings()
+
+	public IEnumerable<Painting> GetAllPaintings()
     {
         var request = new RestRequest("/all", Method.Get);
         var response = client.Execute<List<Painting>>(request);

@@ -1,3 +1,4 @@
+using Maletkunst.DAL.RestClient;
 using MaletKunst.WinApp;
 
 namespace Maletkunst.WinApp;
@@ -13,6 +14,8 @@ internal static class Program
         // To customize application configuration such as set high DPI settings or default font,
         // see https://aka.ms/applicationconfiguration.
         ApplicationConfiguration.Initialize();
-        Application.Run(new MainForm());
+        var ApiClient = new PaintingsRestClientDao();
+
+		Application.Run(new MainForm(ApiClient));
     }
 }
