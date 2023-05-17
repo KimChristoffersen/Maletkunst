@@ -14,24 +14,37 @@ public class PaintingsSqlDao : IPaintingsDao
 	//	this.connectionString = connectionString;
 	//}
 
-	public IEnumerable<Painting> GetAllPaintings()
+	//public IEnumerable<Painting> GetAllPaintings()
+	//{
+	//	string queryString = @"SELECT * FROM Painting";
+	//	using SqlConnection connection = new SqlConnection(connectionString);
+	//	SqlCommand command = new SqlCommand(queryString, connection);
+
+	//	connection.Open();
+
+	//	try { return BuildListOfPaintings(command); }
+
+	//	catch (Exception ex) { throw new Exception("ERROR occurred while getting all paintings", ex); }
+	//}
+
+	public async Task<IEnumerable<Painting>> GetAllPaintingsAsync()
 	{
 		string queryString = @"SELECT * FROM Painting";
 		using SqlConnection connection = new SqlConnection(connectionString);
 		SqlCommand command = new SqlCommand(queryString, connection);
 
-		connection.Open();
+		await connection.OpenAsync();
 
-		try { return BuildListOfPaintings(command); }
+		try { return await BuildListOfPaintingsAsync(command); }
 
 		catch (Exception ex) { throw new Exception("ERROR occurred while getting all paintings", ex); }
 	}
 
-	private IEnumerable<Painting> BuildListOfPaintings(SqlCommand command)
+	private async Task<IEnumerable<Painting>> BuildListOfPaintingsAsync(SqlCommand command)
 	{
-		SqlDataReader reader = command.ExecuteReader();
+		SqlDataReader reader = await command.ExecuteReaderAsync();
 		List<Painting> paintings = new List<Painting>();
-		while (reader.Read())
+		while (await reader.ReadAsync())
 		{
 			paintings.Add(new Painting()
 			{
@@ -46,6 +59,28 @@ public class PaintingsSqlDao : IPaintingsDao
 		}
 		return paintings;
 	}
+
+	//private IEnumerable<Painting> BuildListOfPaintings(SqlCommand command)
+	//{
+	//	SqlDataReader reader = command.ExecuteReader();
+	//	List<Painting> paintings = new List<Painting>();
+	//	while (reader.Read())
+	//	{
+	//		paintings.Add(new Painting()
+	//		{
+	//			Id = (int)reader["ID"],
+	//			Title = (string)reader["Title"],
+	//			Price = (decimal)reader["Price"],
+	//			Stock = (int)reader["Stock"],
+	//			Artist = (string)reader["Artist"],
+	//			Description = (string)reader["Description"],
+	//			Category = (string)reader["Category"]
+	//		});
+	//	}
+	//	return paintings;
+	//}
+
+
 
 	public int CreatePainting(Painting painting)
 	{
