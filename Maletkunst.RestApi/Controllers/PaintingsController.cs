@@ -31,9 +31,9 @@ public class PaintingsController : ControllerBase
 
 
 	[HttpGet("all")]
-	public ActionResult<IEnumerable<Painting>> GetAll()
+	public async Task<ActionResult<IEnumerable<Painting>>> GetAll()
 	{
-		var paintings = _paintingsDao.GetAllPaintings();
+		var paintings = await _paintingsDao.GetAllPaintingsAsync();
 
 		if (paintings == null) { return NotFound(); }
 
