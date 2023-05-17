@@ -9,23 +9,7 @@ public class PaintingsSqlDao : IPaintingsDao
 {
 	private string connectionString = @"Data Source=hildur.ucn.dk; Initial Catalog=DMA-CSD-V221_10434660; User ID=DMA-CSD-V221_10434660; Password=Password1!;";
 
-	//public PaintingWinAppSqlDao(string connectionString)
-	//{
-	//	this.connectionString = connectionString;
-	//}
-
-	//public IEnumerable<Painting> GetAllPaintings()
-	//{
-	//	string queryString = @"SELECT * FROM Painting";
-	//	using SqlConnection connection = new SqlConnection(connectionString);
-	//	SqlCommand command = new SqlCommand(queryString, connection);
-
-	//	connection.Open();
-
-	//	try { return BuildListOfPaintings(command); }
-
-	//	catch (Exception ex) { throw new Exception("ERROR occurred while getting all paintings", ex); }
-	//}
+	
 
 	public async Task<IEnumerable<Painting>> GetAllPaintingsAsync()
 	{
@@ -60,25 +44,7 @@ public class PaintingsSqlDao : IPaintingsDao
 		return paintings;
 	}
 
-	//private IEnumerable<Painting> BuildListOfPaintings(SqlCommand command)
-	//{
-	//	SqlDataReader reader = command.ExecuteReader();
-	//	List<Painting> paintings = new List<Painting>();
-	//	while (reader.Read())
-	//	{
-	//		paintings.Add(new Painting()
-	//		{
-	//			Id = (int)reader["ID"],
-	//			Title = (string)reader["Title"],
-	//			Price = (decimal)reader["Price"],
-	//			Stock = (int)reader["Stock"],
-	//			Artist = (string)reader["Artist"],
-	//			Description = (string)reader["Description"],
-	//			Category = (string)reader["Category"]
-	//		});
-	//	}
-	//	return paintings;
-	//}
+	
 
 
 

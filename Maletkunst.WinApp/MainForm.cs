@@ -17,11 +17,7 @@ public partial class MainForm : Form
 
 	private void MainForm_Load(object sender, EventArgs e) => LoadData();
 
-	//private void LoadData()
-	//{
-	//	GetAllPaintings();
-	//	SetButtonsDeleteAndUpdateDisabled();
-	//}
+	
 
 	private async void LoadData()
 	{
@@ -41,13 +37,7 @@ public partial class MainForm : Form
 		buttonUpdate.Enabled = true;
 	}
 
-	//private void GetAllPaintings()
-	//{
-	//	foreach (var painting in _client.GetAllPaintings())
-	//	{
-	//		listBoxPaintings.Items.Add(painting);
-	//	}
-	//}
+
 
 	private async Task GetAllPaintings()
 	{
