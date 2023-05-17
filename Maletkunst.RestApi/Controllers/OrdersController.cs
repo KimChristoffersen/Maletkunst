@@ -8,17 +8,17 @@ namespace Maletkunst.RestApi.Controllers;
 [ApiController]
 public class OrdersController : ControllerBase
 {
-    private IOrdersDataAccess _orderMvcDao;
+    private IOrdersDataAccess _ordersDataAccess;
 
-    public OrdersController(IOrdersDataAccess orderMvcDao)
+    public OrdersController(IOrdersDataAccess orderDataAccess)
     {
-        _orderMvcDao = orderMvcDao;
+        _ordersDataAccess = orderDataAccess;
     }
 
     [HttpGet]
     public ActionResult<IEnumerable<Order>> GetAllOrders()
     {
-        var orders = _orderMvcDao.GetAllOrders();
+        var orders = _ordersDataAccess.GetAllOrders();
 
         if (orders == null) { return NotFound(); }
 
@@ -36,7 +36,7 @@ public class OrdersController : ControllerBase
     [HttpPost]
     public ActionResult<int> CreateOrder(Order order)
     {
-        int id = _orderMvcDao.CreateOrder(order);
+        int id = _ordersDataAccess.CreateOrder(order);
 
         if (id == 0) { return BadRequest(); }
 
