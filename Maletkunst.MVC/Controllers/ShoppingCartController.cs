@@ -49,7 +49,7 @@ namespace Maletkunst.MVC.Controllers
 			}
 
 			SaveCartToCookie(cart);
-			return RedirectToAction("Index", "Paintings");
+			return RedirectToAction("Index", "ShoppingCart");
 		}
 
 
