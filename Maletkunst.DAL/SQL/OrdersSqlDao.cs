@@ -18,9 +18,13 @@ public class OrdersSqlDao : IOrdersDataAccess
 	private const string queryStringCustomer = @"INSERT INTO Customer (Customer_Id, Discount) VALUES (@customerId, @discount)";
 	private const string queryStringAddress = @"INSERT INTO Address (address, personId, postalCode) VALUES (@address, @personId, @postalCode)";
 
-	private IPaintingsDataAccess _paintingSqlDataAccess = new PaintingsSqlDataAccess();
+	private IPaintingsDataAccess _paintingSqlDataAccess;
 
-	public IEnumerable<Order> GetAllOrders()
+    public OrdersSqlDao(IPaintingsDataAccess paintingSqlDataAccess)
+    {
+        _paintingSqlDataAccess = paintingSqlDataAccess;
+    }
+    public IEnumerable<Order> GetAllOrders()
 	{
 		string queryString = @"SELECT * FROM [Order]";
 		using SqlConnection connection = new(connectionString);

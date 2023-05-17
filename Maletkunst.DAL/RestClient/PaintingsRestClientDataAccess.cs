@@ -13,8 +13,8 @@ public class PaintingsRestClientDataAccess : IPaintingsDataAccess
 	public PaintingsRestClientDataAccess()
 	{
 
-		restUrl = "https://www.maletkunst.dk/api/v1/Paintings";
-		//restUrl = "https://localhost:7150/v1/Paintings";
+		//restUrl = "https://www.maletkunst.dk/api/v1/Paintings";
+		restUrl = "https://localhost:7150/v1/Paintings";
 
 		//Robert URL nedenunder
 		//restUrl = "https://localhost:7104/Paintings";
