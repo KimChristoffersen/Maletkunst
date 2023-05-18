@@ -264,3 +264,31 @@ body {
     text-align: Left;
     background-color: #f2f2f2 !important;
 }
+
+/* ==========================================================================
+   Orderinformation Styles
+   ========================================================================== */
+
+.orderinformation {
+    border: 0px solid black;
+    padding: 50px;
+    margin: 0px auto;
+    max-width: 600px; 
+    text-align: left;
+    background-color: #f2f2f2 !important;
+}
+
+.orderinformation-picturesold {
+    border: 0px solid black;
+    padding: 50px;
+    margin: 0px auto; 
+    max-width: 600px;
+    text-align: center;
+    background-color: #f2f2f2 !important;
+}
+.col-sm-2 {
+    width: 200px;
+}
+.col-sm-10{
+    width: 300px;
+}
