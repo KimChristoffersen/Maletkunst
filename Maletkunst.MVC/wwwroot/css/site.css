@@ -287,8 +287,16 @@ body {
     background-color: #f2f2f2 !important;
 }
 .col-sm-2 {
-    width: 200px;
+    width: 40%;
 }
-.col-sm-10{
-    width: 300px;
+
+
+.col-sm-10 {
+    width: 60%;
+    text-align: right;
 }
+
+.orderinformation h4 {
+    margin-top: 10px;
+}
+
