@@ -1,5 +1,6 @@
 ﻿using Maletkunst.DAL.Interfaces;
 using Maletkunst.DAL.Models;
+using Maletkunst.MVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 
@@ -99,9 +100,14 @@ namespace Maletkunst.MVC.Controllers
 
 		public IActionResult CustomerInformation(string serializedShoppingCart)
 		{
-			ViewBag.SerializedShoppingCart = serializedShoppingCart;
-			return View();
+			var viewModel = new CustomerInformationViewModel
+			{
+				ShoppingCart = serializedShoppingCart
+			};
+
+			return View(viewModel);
 		}
+
 
 	}
 }

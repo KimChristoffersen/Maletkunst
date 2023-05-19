@@ -53,8 +53,9 @@
             <input asp-for="Phone" id="phone" class="form-control" required>
         </div>
 
-        <input type="hidden" name="ShoppingCart" value='@ViewBag.SerializedShoppingCart' />
+        <input type="hidden" asp-for="ShoppingCart" />
         <button type="submit" class="btn btn-primary">Betal</button>
+
     </form>
 </div>
 
