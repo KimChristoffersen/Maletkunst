@@ -149,7 +149,7 @@
             // comboBoxCategory
             // 
             comboBoxCategory.FormattingEnabled = true;
-            comboBoxCategory.Items.AddRange(new object[] { "Aquaral", "Oliemaleri" });
+            comboBoxCategory.Items.AddRange(new object[] { "Akvaral", "Oliemaleri" });
             comboBoxCategory.Location = new Point(113, 157);
             comboBoxCategory.Margin = new Padding(3, 2, 3, 2);
             comboBoxCategory.Name = "comboBoxCategory";
