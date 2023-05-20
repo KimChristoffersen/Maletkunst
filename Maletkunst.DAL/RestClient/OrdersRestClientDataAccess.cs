@@ -12,7 +12,9 @@ public class OrdersRestClientDataAccess : IOrdersDataAccess
 	public OrdersRestClientDataAccess()
 	{
 		restUrl = "https://www.maletkunst.dk/api/v1/Orders";
-		//restUrl = "https://localhost:7150/v1/Paintings";
+
+		//Thomas URL nedenunder
+		//restUrl = "https://localhost:7150/v1/Orders";
 
 		//Robert URL nedenunder
 		//restUrl = "https://localhost:7104/Paintings";
