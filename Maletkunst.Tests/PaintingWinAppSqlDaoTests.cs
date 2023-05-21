@@ -25,11 +25,11 @@ namespace Maletkunst.Tests
             string developerGuid = Guid.NewGuid().ToString("N");
 
             // Write your name
-            _developer = developerGuid + "Robert";
+            _developer = developerGuid + "Thomas";
 
             // Access to database
             _paintingWinAppSqlDao = new PaintingsSqlDao(
-               // _connectionString            commented until implementation.
+               _connectionString            
                 );
 
             // Set up list for painting ids
@@ -68,16 +68,16 @@ namespace Maletkunst.Tests
         [Category("Database")]
         [Description("Integration test for getting all paintings from the Database")]
         [Test]
-        public void GetAllPaintings_GetsAllPaintings_ReturnsListOfPaintings()
+        public async Task GetAllPaintings_GetsAllPaintings_ReturnsListOfPaintings()
         {
 
-            //Arrange
+			//Arrange
 
-            // Act
-            List<Painting> paintings = _paintingWinAppSqlDao.GetAllPaintings().ToList();
+			// Act
+			List<Painting> paintings = (await _paintingWinAppSqlDao.GetAllPaintingsAsync()).ToList();
 
-            // Assert
-            int expectedCount = paintingIds.Count;
+			// Assert
+			int expectedCount = paintingIds.Count;
             Assert.That(paintings.Count, Is.EqualTo(expectedCount), $"Test Failed: expected painting count {expectedCount} but got {paintings.Count}");
         }
 
