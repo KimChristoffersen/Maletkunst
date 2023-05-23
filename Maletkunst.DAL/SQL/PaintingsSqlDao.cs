@@ -108,6 +108,7 @@ public class PaintingsSqlDao : IPaintingsDao
 		}
 		catch (SqlException ex)
 		{
+			//HACK: we're using ex no as id
 			if (ex.Number == 547) // Foreign key constraint violation number
 			{
 				//Run it in swagger and try the delete method

@@ -135,9 +135,6 @@ public class OrdersSqlDao : IOrdersDataAccess
 
             try
             {
-                // DELAY INSERTED FOR TESTING CONCURENCY
-                Thread.Sleep(3000);
-
                 // LOOP FOR CHECKING STOCK OF ORDERS PAINTINGS
                 foreach (OrderLine orderLine in order.OrderLines)
                 {
@@ -151,6 +148,7 @@ public class OrdersSqlDao : IOrdersDataAccess
                     using SqlDataReader reader = commandSelectPaintingStock.ExecuteReader();
                     if (!reader.Read())
                     {
+                        // implisit rollback
                         return 0;
                     }
                 }
@@ -182,6 +180,8 @@ public class OrdersSqlDao : IOrdersDataAccess
                 // EXECUTION OF ORDER CREATION WITH GENERATED IDENTITY KEY
                 int newGeneratedOrderNumber = (int)commandOrder.ExecuteScalar();
 
+                // DELAY INSERTED FOR TESTING CONCURENCY
+                Thread.Sleep(3000);
 
                 // LOOP TO CREATE ORDERLINES
                 foreach (OrderLine orderLine in order.OrderLines)
