@@ -13,20 +13,12 @@ public class PaintingsController : Controller
 		_client = client;
 	}
 	
-
 	public IActionResult Index(string category, string searchString)
 	{
 		var paintings = _client.GetAllPaintingsByFreeSearch(searchString, category);
 		ViewData["Category"] = category ?? string.Empty;
 		ViewData["SearchString"] = searchString ?? string.Empty;
 		return View(paintings);
-	}
-
-
-	public IActionResult GetPaintingsByCategory(string category)
-	{
-		var getPaintingsByCategory = _client.GetAllPaintingsByCategory(category);
-		return View("Index", getPaintingsByCategory);
 	}
 
 	public IActionResult Details(int id)

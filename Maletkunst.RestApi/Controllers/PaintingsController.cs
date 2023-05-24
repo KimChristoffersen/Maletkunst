@@ -42,19 +42,6 @@ public class PaintingsController : ControllerBase
 		return Ok(paintings);
 	}
 
-	[HttpGet("category/{category}")]
-	public ActionResult<IEnumerable<Painting>> GetPaintingsByCategory(string category)
-	{
-		var paintings = _paintingsDataAccess.GetAllPaintingsByCategory(category);
-
-		if (paintings == null) { return NotFound(); }
-
-		if (!paintings.Any()) { return NoContent(); }
-
-		return Ok(paintings);
-	}
-
-
 
 	[HttpGet("search/{searchString}/category/{category}")]
 	public ActionResult<IEnumerable<Painting>> GetPaintingsByCategoryAndFreeSearch(string searchString, string category)
@@ -67,19 +54,6 @@ public class PaintingsController : ControllerBase
 
 		return Ok(paintings);
 	}
-
-
-	//[HttpGet("search/{searchString}")]
-	//   public ActionResult<IEnumerable<Painting>> GetPaintingsByFreeSearch(string searchString)
-	//   {
-	//       var paintings = _paintingMvcDao.GetAllPaintingsByFreeSearch(searchString);
-
-	//       if (paintings == null) { return NotFound(); }
-
-	//       if (!paintings.Any()) { return NoContent(); }
-
-	//       return Ok(paintings);
-	//   }
 
 	[HttpPost]
 	public ActionResult<int> CreatePainting(Painting painting)

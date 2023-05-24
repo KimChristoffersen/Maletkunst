@@ -1,7 +1,3 @@
-use [DMA-CSD-V221_10434639]
-
-select * from PostalCode
-
 INSERT INTO PostalCode (PostalCode, City)
 VALUES 
 (1301, 'København K'),

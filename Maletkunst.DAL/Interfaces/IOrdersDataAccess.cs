@@ -1,5 +1,4 @@
-﻿
-using Maletkunst.DAL.Models;
+﻿using Maletkunst.DAL.Models;
 
 namespace Maletkunst.DAL.Interfaces;
 

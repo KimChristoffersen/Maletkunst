@@ -4,7 +4,6 @@ using RestSharp;
 
 namespace Maletkunst.DAL.RestClient;
 
-
 public class PaintingsRestClientDataAccess : IPaintingsDataAccess
 {
 	private readonly string restUrl;
@@ -12,15 +11,7 @@ public class PaintingsRestClientDataAccess : IPaintingsDataAccess
 
 	public PaintingsRestClientDataAccess()
 	{
-
 		restUrl = "https://www.maletkunst.dk/api/v1/Paintings";
-
-		//Thomas URL nedenunder
-		//restUrl = "https://localhost:7150/v1/Paintings";
-
-		//Robert URL nedenunder
-		//restUrl = "https://localhost:7104/Paintings";
-
 		client = new RestSharp.RestClient(restUrl);
 	}
 
@@ -59,8 +50,6 @@ public class PaintingsRestClientDataAccess : IPaintingsDataAccess
 		return response.Data;
 	}
 
-
-
 	public IEnumerable<Painting> GetAllPaintingsByFreeSearch(string searchString)
 	{
 		var request = new RestRequest($"search/{searchString}", Method.Get);
@@ -75,7 +64,6 @@ public class PaintingsRestClientDataAccess : IPaintingsDataAccess
 		return response.Data;
 	}
 
-
 	public Painting GetPaintingById(int id)
 	{
 		var request = new RestRequest("{id}");
@@ -83,5 +71,4 @@ public class PaintingsRestClientDataAccess : IPaintingsDataAccess
 		var response = client.Execute<Painting>(request);
 		return response.Data;
 	}
-
 }
