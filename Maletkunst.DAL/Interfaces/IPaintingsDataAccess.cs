@@ -7,8 +7,9 @@ namespace Maletkunst.DAL.Interfaces
         IEnumerable<Painting> GetAllAvailablePaintings();
         IEnumerable<Painting> GetAllPaintingsByFreeSearch(string searchString);
         Painting GetPaintingById(int id);
+		IEnumerable<Painting> GetAllPaintingsByCategory(string category);
 
-        IEnumerable<Painting> GetAllPaintingsByFreeSearch(string searchString, string category);
+		IEnumerable<Painting> GetAllPaintingsByFreeSearch(string searchString, string category);
 
 
 	}

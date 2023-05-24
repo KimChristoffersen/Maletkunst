@@ -29,6 +29,17 @@ public class PaintingsController : ControllerBase
 		return Ok(paintings);
 	}
 
+	[HttpGet("category/{category}")]
+	public ActionResult<IEnumerable<Painting>> GetPaintingsByCategory(string category)
+	{
+		var paintings = _paintingsDataAccess.GetAllPaintingsByCategory(category);
+
+		if (paintings == null) { return NotFound(); }
+
+		if (!paintings.Any()) { return NoContent(); }
+
+		return Ok(paintings);
+	}
 
 	[HttpGet("all")]
 	public async Task<ActionResult<IEnumerable<Painting>>> GetAll()
