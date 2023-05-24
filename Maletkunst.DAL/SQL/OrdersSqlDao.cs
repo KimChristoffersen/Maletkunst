@@ -6,16 +6,33 @@ namespace Maletkunst.DAL.SQL;
 
 public class OrdersSqlDao : IOrdersDataAccess
 {
-    private const string connectionString = @"Data Source=hildur.ucn.dk; Initial Catalog=DMA-CSD-V221_10434660; User ID=DMA-CSD-V221_10434660; Password=Password1!;";
+    private const string connectionString = @"Data Source=hildur.ucn.dk;
+                                            Initial Catalog=DMA-CSD-V221_10434660;
+                                            User ID=DMA-CSD-V221_10434660;
+                                            Password=Password1!;";
 
-    private const string queryString_InsertOrder = @"insert into [Order] (Status, Total, Customer_Id) values(@Status, @Total, @Customer_Id); SELECT CAST(scope_identity() AS int)";
-    private const string queryString_InsertOrderLine = @"insert into [OrderLine] values(@Quantity, @SubTotal, @OrderNumber, @Painting_Id)";
-    private const string queryString_SelectPaintingsWithStock = @"SELECT * FROM Painting WHERE Id = @Painting_Id AND Stock > 0";
-    private const string queryString_UpdatePaintingsStock = @"UPDATE Painting SET Stock = Stock - 1 WHERE Id = @Painting_Id";
+    private const string queryString_InsertOrder = @"INSERT INTO [Order] (Status, Total, Customer_Id)
+                                                   VALUES(@Status, @Total, @Customer_Id);
+                                                   SELECT CAST(scope_identity() AS int)";
 
-    private const string queryString_InsertPerson = @"INSERT INTO Person (fName, lName, phone, email, personType) VALUES (@fName, @lName, @phone, @email, @personType); SELECT CAST(scope_identity() AS int)";
-    private const string queryString_InsertCustomer = @"INSERT INTO Customer (Customer_Id, Discount) VALUES (@customerId, @discount)";
-    private const string queryString_InsertAddress = @"INSERT INTO Address (address, personId, postalCode) VALUES (@address, @personId, @postalCode)";
+    private const string queryString_InsertOrderLine = @"INSERT INTO [OrderLine]
+                                                       VALUES(@Quantity, @SubTotal, @OrderNumber, @Painting_Id)";
+
+    private const string queryString_SelectPaintingsWithStock = @"SELECT * FROM Painting
+                                                                WHERE Id = @Painting_Id AND Stock > 0";
+
+    private const string queryString_UpdatePaintingsStock = @"UPDATE Painting SET Stock = Stock - 1
+                                                            WHERE Id = @Painting_Id";
+
+    private const string queryString_InsertPerson = @"INSERT INTO Person (fName, lName, phone, email, personType)
+                                                    VALUES (@fName, @lName, @phone, @email, @personType);
+                                                    SELECT CAST(scope_identity() AS int)";
+
+    private const string queryString_InsertCustomer = @"INSERT INTO Customer (Customer_Id, Discount)
+                                                      VALUES (@customerId, @discount)";
+
+    private const string queryString_InsertAddress = @"INSERT INTO Address (address, personId, postalCode)
+                                                     VALUES (@address, @personId, @postalCode)";
 
     private IPaintingsDataAccess _paintingSqlDataAccess;
 
