@@ -27,12 +27,6 @@ public class OrdersController : ControllerBase
         return Ok(orders);
     }
 
-    //[HttpGet("{id}")]
-    //public string GetOrderByOrderNumber(int orderNumber)
-    //{
-    //    return "value";
-    //}
-
     [HttpPost]
     public ActionResult<int> CreateOrder(Order order)
     {
@@ -42,14 +36,4 @@ public class OrdersController : ControllerBase
 
         return Ok(id);
     }
-
-    //[HttpPut("{id}")]
-    //public void UpdateOrder(int id, [FromBody] string value)
-    //{
-    //}
-
-    //[HttpDelete("{id}")]
-    //public void DeleteOrder(int OrderNumber)
-    //{
-    //}
 }

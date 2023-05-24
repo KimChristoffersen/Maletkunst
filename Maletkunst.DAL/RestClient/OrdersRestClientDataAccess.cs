@@ -15,6 +15,7 @@ public class OrdersRestClientDataAccess : IOrdersDataAccess
 
 		client = new RestSharp.RestClient(restUrl);
 	}
+
 	public int CreateOrder(Order order)
 	{
 		var request = new RestRequest("", Method.Post).AddJsonBody(order);

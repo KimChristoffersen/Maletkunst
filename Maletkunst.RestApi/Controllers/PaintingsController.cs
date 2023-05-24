@@ -117,7 +117,4 @@ public class PaintingsController : ControllerBase
 
 		return Ok(paintings);
 	}
-
-
-
 }

@@ -6,7 +6,7 @@ using Maletkunst.DAL.SQL;
 namespace Maletkunst.Tests
 {
     [TestFixture]
-    public class PaintingWinAppSqlDaoTests
+    public class PaintingsSqlDaoTests
     {
         #region Fields
         private string _developer;

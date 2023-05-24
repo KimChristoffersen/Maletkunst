@@ -37,7 +37,7 @@ namespace Maletkunst.MVC.Controllers
 					{
 						Id = painting.Id,
 						Name = painting.Title,
-						Price = painting.Price ?? 0,
+						Price = painting.Price,
 						Quantity = 1
 					};
 					cart.Items.Add(shoppingCartItem);
