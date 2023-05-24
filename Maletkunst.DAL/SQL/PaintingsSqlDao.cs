@@ -47,10 +47,6 @@ public class PaintingsSqlDao : IPaintingsDao
 		return paintings;
 	}
 
-	
-
-
-
 	public int CreatePainting(Painting painting)
 	{
 		string queryString = @"INSERT INTO Painting values(@Title,@Price,@Stock,@Artist,@Description,@Category); SELECT CAST(scope_identity() AS int)";
