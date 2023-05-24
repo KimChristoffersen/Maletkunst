@@ -9,11 +9,15 @@ public class PaintingsSqlDao : IPaintingsDao
 {
 	private string connectionString = @"Data Source=hildur.ucn.dk; Initial Catalog=DMA-CSD-V221_10434660; User ID=DMA-CSD-V221_10434660; Password=Password1!;";
 
-    public PaintingsSqlDao(String connectionString)
+	public PaintingsSqlDao(String connectionString)
     {
 		this.connectionString = connectionString;
 	}
 
+    public PaintingsSqlDao()
+    {
+        
+    }
     public async Task<IEnumerable<Painting>> GetAllPaintingsAsync()
 	{
 		string queryString = @"SELECT * FROM Painting";

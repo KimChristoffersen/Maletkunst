@@ -20,7 +20,6 @@ public class Program
         builder.Services.AddScoped<IPaintingsDataAccess, PaintingsSqlDataAccess>();
         builder.Services.AddScoped<IOrdersDataAccess, OrdersSqlDao>();
 
-		builder.Services.AddScoped<ICustomersDao, CustomersSqlDao>();
 
 
 		//builder.Services.AddScoped<IOrderLineMvcDataAccess, OrderLineMvcSqlDao>();
