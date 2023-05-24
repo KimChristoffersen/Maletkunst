@@ -12,11 +12,7 @@ public class OrdersController : Controller
 {
 	IOrdersDataAccess _client;
 
-	public OrdersController(IOrdersDataAccess client)
-	{
-		_client = client;
-	}
-
+	public OrdersController(IOrdersDataAccess client) { _client = client; }
 
 	public ActionResult Index(CustomerInformationViewModel customerInfo)
 	{
@@ -93,8 +89,4 @@ public class OrdersController : Controller
 	{
 		Response.Cookies.Delete("ShoppingCart");
 	}
-
 }
-
-
-

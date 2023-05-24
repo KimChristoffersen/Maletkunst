@@ -8,7 +8,6 @@ namespace Maletkunst.MVC.Controllers
 {
     public class ShoppingCartController : Controller
     {
-
         private readonly IPaintingsDataAccess _client;
         ShoppingCart cart = new ShoppingCart();
 
@@ -17,14 +16,10 @@ namespace Maletkunst.MVC.Controllers
             _client = client;
         }
         
-
-
         public IActionResult Index()
         {
             return View(GetCartFromCookie(HttpContext));
         }
-
-
 
 		public IActionResult Add(int id)
 		{
@@ -48,14 +43,9 @@ namespace Maletkunst.MVC.Controllers
 					cart.Items.Add(shoppingCartItem);
 				}
 			}
-
 			SaveCartToCookie(cart);
 			return RedirectToAction("Index", "ShoppingCart");
 		}
-
-
-
-
 
 		private void SaveCartToCookie(ShoppingCart cart)
         {
@@ -107,7 +97,5 @@ namespace Maletkunst.MVC.Controllers
 
 			return View(viewModel);
 		}
-
-
 	}
 }

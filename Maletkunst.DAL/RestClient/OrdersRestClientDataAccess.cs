@@ -13,12 +13,6 @@ public class OrdersRestClientDataAccess : IOrdersDataAccess
 	{
 		restUrl = "https://www.maletkunst.dk/api/v1/Orders";
 
-		//Thomas URL nedenunder
-		//restUrl = "https://localhost:7150/v1/Orders";
-
-		//Robert URL nedenunder
-		//restUrl = "https://localhost:7104/Paintings";
-
 		client = new RestSharp.RestClient(restUrl);
 	}
 	public int CreateOrder(Order order)

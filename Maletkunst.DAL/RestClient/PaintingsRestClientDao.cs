@@ -12,18 +12,8 @@ public class PaintingsRestClientDao : IPaintingsDao
     public PaintingsRestClientDao()
     {
         restUrl = "https://www.maletkunst.dk/api/v1/Paintings";
-
-        //Thomas URL nedenunder
-        //restUrl = "https://localhost:7150/v1/Paintings";
-
-        //Robert URL nedenunder
-        //restUrl = "https://localhost:7104/Paintings";
-
         client = new RestSharp.RestClient(restUrl);
 	}
-
-
-
 
 	public async Task<IEnumerable<Painting>> GetAllPaintingsAsync()
 	{

@@ -9,12 +9,11 @@ public class PaintingsSqlDao : IPaintingsDao
 {
 	private string connectionString = @"Data Source=hildur.ucn.dk; Initial Catalog=DMA-CSD-V221_10434660; User ID=DMA-CSD-V221_10434660; Password=Password1!;";
 
-    public PaintingsSqlDao(String connectionString)
-    {
-		this.connectionString = connectionString;
-	}
+	public PaintingsSqlDao(String connectionString) { this.connectionString = connectionString; }
 
-    public async Task<IEnumerable<Painting>> GetAllPaintingsAsync()
+    public PaintingsSqlDao() { }
+
+	public async Task<IEnumerable<Painting>> GetAllPaintingsAsync()
 	{
 		string queryString = @"SELECT * FROM Painting";
 		using SqlConnection connection = new SqlConnection(connectionString);
@@ -105,6 +104,7 @@ public class PaintingsSqlDao : IPaintingsDao
 		}
 		catch (SqlException ex)
 		{
+			//HACK: we're using ex no as id
 			if (ex.Number == 547) // Foreign key constraint violation number
 			{
 				//Run it in swagger and try the delete method
