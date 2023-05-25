@@ -68,22 +68,22 @@ public class OrdersController : Controller
 
 
 	// POST: OrdersController/Create
-	[HttpPost]
-	[ValidateAntiForgeryToken]
-	public ActionResult Create(Order order, Customer customer)
-	{
-		try
-		{
-			order.OrdersCustomer = customer;
-			int orderId = _client.CreateOrder(order);
-			EmptyCart();
-			return RedirectToAction(nameof(Index));
-		}
-		catch
-		{
-			return View();
-		}
-	}
+	//[HttpPost]
+	//[ValidateAntiForgeryToken]
+	//public ActionResult Create(Order order, Customer customer)
+	//{
+	//	try
+	//	{
+	//		order.OrdersCustomer = customer;
+	//		int orderId = _client.CreateOrder(order);
+	//		EmptyCart();
+	//		return RedirectToAction(nameof(Index));
+	//	}
+	//	catch
+	//	{
+	//		return View();
+	//	}
+	//}
 
 	private void EmptyCart()
 	{
